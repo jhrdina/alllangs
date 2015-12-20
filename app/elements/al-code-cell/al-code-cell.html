@@ -1,0 +1,36 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+<link rel="import" href="../../bower_components/prism-js/prism-js.html">
+
+
+<dom-module id="al-code-cell">
+  <template>
+    <style>
+      :host {
+        @apply(--layout);
+      }
+
+      iron-autogrow-textarea {
+        @apply(--layout-auto);
+        border-style: none;
+      }
+
+    </style>
+
+    <template is="dom-if" if="[[!editing]]">
+      <span>{{formattedText}}</span>
+    </template>
+    <template is="dom-if" if="[[editing]]">
+      <iron-autogrow-textarea
+        on-keydown="keyDown"
+        bind-value="{{editedText}}">
+      </iron-autogrow-textarea>
+    </template>
+
+  </template>
+</dom-module>
+
+<script type="text/javascript" src="al-code-cell.js"></script>

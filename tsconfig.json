@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "isolatedModules": false,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "declaration": false,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "noLib": false,
+        "preserveConstEnums": true,
+        "suppressImplicitAnyIndexErrors": true
+    },
+    "filesGlob": [
+        "app/**/*.ts",
+        "app/**/*.tsx",
+        "!node_modules/**"
+    ],
+    "files": [
+        "app/elements/al-code-cell/al-code-cell.ts"
+    ],
+    "atom": {
+        "rewriteTsconfig": true
+    }
+}
