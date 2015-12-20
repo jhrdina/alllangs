@@ -8,20 +8,29 @@
 
 <dom-module id="al-code-cell">
   <template>
+    <link rel="stylesheet" href="../../bower_components/prism/themes/prism.css">
     <style>
       :host {
         @apply(--layout);
+
+        font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
       }
 
       iron-autogrow-textarea {
         @apply(--layout-auto);
         border-style: none;
+        line-height: 1.5;
+      }
+
+      prism-js /deep/ pre[class*="language-"] {
+        margin: 0;
+        padding: 2px;
       }
 
     </style>
 
     <template is="dom-if" if="[[!editing]]">
-      <span>{{formattedText}}</span>
+      <prism-js language="[[language]]" input-value="{{text}}"></prism-js>
     </template>
     <template is="dom-if" if="[[editing]]">
       <iron-autogrow-textarea

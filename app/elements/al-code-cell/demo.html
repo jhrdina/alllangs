@@ -29,7 +29,10 @@ DEMO PAGE FOR COMPONENT 'al-code-cell'
       <div>
         <h4>TEST</h4>
         <div class="horizontal-section">
-          <al-code-cell id="myelement" text="{{cellText}}"></al-code-cell>
+          <al-code-cell
+            text="{{cellText}}"
+            language="javascript">
+          </al-code-cell>
           <hr>
           <p>
             Bound text:
@@ -52,7 +55,7 @@ DEMO PAGE FOR COMPONENT 'al-code-cell'
           }
         },
         ready: function() {
-          this.cellText = "Amazing text";
+          this.cellText = "function test() { var test; }";
         }
       });
 

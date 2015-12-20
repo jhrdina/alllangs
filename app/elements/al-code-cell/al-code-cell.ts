@@ -3,7 +3,10 @@
 @component('al-code-cell')
 class AlCodeCell extends polymer.Base {
   @property({ type: String, notify: true })
-  text: string;  
+  text: string;
+
+  @property({ type: String })
+  language: string;
 
   editing: boolean;
 
