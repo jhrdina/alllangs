@@ -1,0 +1,88 @@
+<!doctype html>
+<!--
+DEMO PAGE FOR COMPONENT 'al-construct-cell'
+-->
+<html>
+  <head>
+    <title>DEMO al-construct-cell</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="al-construct-cell.html">
+
+    <style is="custom-style">
+      .horizontal-section {
+        min-width: 100px;
+      }
+
+    </style>
+
+  </head>
+
+  <body unresolved>
+  <span id="browser-sync-binding"></span>
+
+  <x-app></x-app>
+
+  <dom-module id="x-app">
+    <template>
+      <style>
+        al-construct-cell {
+          border: 1px solid black;
+          max-width: 300px;
+        }
+      </style>
+      <div>
+        <h4>TEST</h4>
+        <div class="horizontal-section">
+          <al-construct-cell
+            text="{{text}}"
+            on-add-construct-below="addBelow"
+            on-add-section-below="addSection"
+            on-delete="delete"
+            on-move-up="moveUp"
+            on-move-down="moveDown"
+          ></al-construct-cell>
+        </div>
+      </div>
+    </div>
+  </template>
+  </dom-module>
+
+
+  <script>
+  Polymer({
+        is: 'x-app',
+        properties: {
+          test: {
+            type: String,
+            value: 'PolymerTS'
+          }
+        },
+        ready: function() {
+          this.text = "Amazing text";
+        },
+        addBelow: function () {
+          console.log('Add construct below');
+        },
+        addSection: function () {
+          console.log('Add section below');
+        },
+        delete: function () {
+          console.log('Delete');
+        },
+        moveUp: function () {
+          console.log('Move up');
+        },
+        moveDown: function () {
+          console.log('Move down');
+        }
+      });
+
+        (function(document) {
+          'use strict';
+        })(document);
+  </script>
+
+  </body>
+</html>

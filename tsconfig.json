@@ -18,7 +18,9 @@
         "!node_modules/**"
     ],
     "files": [
-        "app/elements/al-code-cell/al-code-cell.ts"
+        "app/elements/al-code-cell/al-code-cell.ts",
+        "app/elements/al-construct-cell/al-construct-cell.ts",
+        "app/elements/al-section-header/al-section-header.ts"
     ],
     "atom": {
         "rewriteTsconfig": true
