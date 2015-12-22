@@ -2,7 +2,7 @@
 class Construct {
   public title: string;
 
-  private solutions: { [languageId: string]: string };
+  public solutions: { [languageId: string]: string };
 
   public getSolutionForLanguage(languageId: string): string {
     return this.solutions[languageId];

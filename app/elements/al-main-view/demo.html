@@ -1,0 +1,91 @@
+<!doctype html>
+<!--
+DEMO PAGE FOR COMPONENT 'al-main-view'
+-->
+<html>
+  <head>
+    <title>DEMO al-main-view</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="al-main-view.html">
+
+    <style is="custom-style">
+      .horizontal-section {
+        min-width: 100px;
+      }
+
+    </style>
+
+  </head>
+
+  <body unresolved>
+  <span id="browser-sync-binding"></span>
+
+  <x-app></x-app>
+
+  <dom-module id="x-app">
+    <template>
+      <div>
+        <h4>TEST</h4>
+        <div class="horizontal-section">
+          <al-main-view languages="{{languages}}" sections="{{sections}}"></al-main-view>
+        </div>
+      </div>
+    </div>
+  </template>
+  </dom-module>
+
+
+  <script>
+  Polymer({
+        is: 'x-app',
+        properties: {
+          test: {
+            type: String,
+            value: 'PolymerTS'
+          }
+        },
+        ready: function() {
+          this.sections = [
+            {
+              title: 'Arrays',
+              constructs: [
+                {
+                  title: 'Appending value',
+                  solutions: {
+                    'java': 'if (apple == "test") {\n  someObject.method();\n}',
+                    'cplusplus': 'Go::staticMethod(name("Carl"));'
+                  }
+                }
+              ]
+            }
+          ];
+
+          this.languages = [
+            {
+              id: 'java',
+              name: 'Java',
+              prism: 'clike'
+            },
+            {
+              id: 'bash',
+              name: 'Bash',
+              prism: 'sh'
+            },
+            {
+              id: 'cplusplus',
+              name: 'C++',
+              prism: 'cpp'
+            }
+          ];
+        }
+      });
+
+        (function(document) {
+          'use strict';
+        })(document);
+  </script>
+
+  </body>
+</html>

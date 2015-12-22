@@ -1,0 +1,51 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
+
+<link rel="import" href="../al-section-header/al-section-header.html">
+<link rel="import" href="../al-construct-row/al-construct-row.html">
+
+<dom-module id="al-main-view">
+  <template>
+    <style>
+      table {
+        border-collapse: collapse;
+        border: 1px solid black;
+      }
+
+      th {
+        border: 1px solid black;
+      }
+
+      al-section-header {
+        /*margin-left: 8px;*/
+      }
+    </style>
+    <table>
+      <thead>
+        <tr>
+          <th>Construct</th>
+          <!-- Language titles -->
+          <template is="dom-repeat" items="{{languages}}" as="language">
+            <th>{{ language.name }}</th>
+          </template>
+        </tr>
+      </thead>
+      <tbody>
+        <template is="dom-repeat" items="{{sections}}" as="section">
+          <!-- Section header -->
+          <tr>
+            <td colspan="100">
+              <al-section-header text="{{section.title}}"></al-section-header>
+            </td>
+          </tr>
+          <!-- Section content -->
+          <template is="dom-repeat" items="{{section.constructs}}" as="construct">
+            <al-construct-row construct="{{construct}}" languages="{{languages}}"></al-construct-row>
+          </template>
+        </template>
+      </tbody>
+    </table>
+  </template>
+</dom-module>
+
+<script type="text/javascript" src="al-main-view.js"></script>
