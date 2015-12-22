@@ -17,13 +17,16 @@ class AlCodeCell extends polymer.Base {
     this.editing = false;
   }
 
-  static formatText(rawText): string {
-    return rawText
+  @observe('text')
+  textChanged(text) {
+    if (text.length > 0) {
+      this.$.codeviewer.innerHTML = he.encode(text);
+      Prism.highlightElement(this.$.codeviewer);
+    }
   }
 
-  @observe('text')
-  textChanged(newValue) {
-    this.formattedText = AlCodeCell.formatText(newValue);
+  getPrismLanguageClass(language) {
+    return 'language-' + language;
   }
 
   @listen('click')

@@ -3,8 +3,6 @@
 <link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
 <link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
 <link rel="import" href="../../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
-<link rel="import" href="../../bower_components/prism-js/prism-js.html">
-
 
 <dom-module id="al-code-cell">
   <template>
@@ -38,39 +36,152 @@
         word-break: normal !important;
       }
 
-      prism-js /deep/ pre[class*="language-"] {
+      pre[class*="language-"] {
         margin: 0;
         padding: 0;
       }
 
-      prism-js /deep/ pre,
-      prism-js /deep/ code {
+      pre,
+      code {
         /* Wrap the same way as textarea */
         word-wrap: break-word !important;
         word-break: normal !important;
         white-space: pre-wrap !important;
 
-        background-color: inherit;
+        background-color: inherit !important;
       }
 
-      prism-js {
+      pre {
         @apply(--layout-flex-auto);
         width: 100%;
       }
 
     </style>
 
-    <template is="dom-if" if="[[!editing]]">
-      <prism-js language="[[language]]" input-value="{{text}}"></prism-js>
-    </template>
-    <template is="dom-if" if="[[editing]]">
-      <iron-autogrow-textarea
-        on-keydown="keyDown"
-        bind-value="{{editedText}}">
-      </iron-autogrow-textarea>
-    </template>
+    <pre hidden$="[[editing]]"><code id="codeviewer" class$="{{getPrismLanguageClass(language)}}"></code></pre>
+    <iron-autogrow-textarea
+      hidden$="[[!editing]]"
+      on-keydown="keyDown"
+      bind-value="{{editedText}}">
+    </iron-autogrow-textarea>
 
   </template>
 </dom-module>
 
+<script src="../../bower_components/prism/prism.js"></script>
+<!-- Prism languages support -->
+<!-- <script src="../../bower_components/prism/components/prism-abap.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-actionscript.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-apacheconf.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-apl.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-applescript.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-asciidoc.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-aspnet.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-autohotkey.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-autoit.js"></script> -->
+<script src="../../bower_components/prism/components/prism-bash.js"></script>
+<!-- <script src="../../bower_components/prism/components/prism-basic.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-batch.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-bison.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-brainfuck.js"></script> -->
+<script src="../../bower_components/prism/components/prism-c.js"></script>
+<script src="../../bower_components/prism/components/prism-clike.js"></script>
+<!-- <script src="../../bower_components/prism/components/prism-coffeescript.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-core.js"></script> -->
+<script src="../../bower_components/prism/components/prism-cpp.js"></script>
+<!-- <script src="../../bower_components/prism/components/prism-crystal.js"></script> -->
+<script src="../../bower_components/prism/components/prism-csharp.js"></script>
+<!-- <script src="../../bower_components/prism/components/prism-css-extras.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-css.js"></script> -->
+<script src="../../bower_components/prism/components/prism-dart.js"></script>
+<!-- <script src="../../bower_components/prism/components/prism-diff.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-d.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-docker.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-eiffel.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-elixir.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-erlang.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-fortran.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-fsharp.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-gherkin.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-git.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-glsl.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-go.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-groovy.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-haml.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-handlebars.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-haskell.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-haxe.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-http.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-icon.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-inform7.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-ini.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-jade.js"></script> -->
+<script src="../../bower_components/prism/components/prism-java.js"></script>
+<script src="../../bower_components/prism/components/prism-javascript.js"></script>
+<!-- <script src="../../bower_components/prism/components/prism-j.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-jsx.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-julia.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-keyman.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-kotlin.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-latex.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-less.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-lolcode.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-lua.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-makefile.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-markdown.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-markup.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-matlab.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-mel.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-mizar.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-monkey.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-nasm.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-nginx.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-nim.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-nix.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-nsis.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-objectivec.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-ocaml.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-oz.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-parigp.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-parser.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-pascal.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-perl.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-php-extras.js"></script> -->
+<script src="../../bower_components/prism/components/prism-php.js"></script>
+<!-- <script src="../../bower_components/prism/components/prism-powershell.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-processing.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-prolog.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-puppet.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-pure.js"></script> -->
+<script src="../../bower_components/prism/components/prism-python.js"></script>
+<!-- <script src="../../bower_components/prism/components/prism-q.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-qore.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-rest.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-rip.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-r.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-roboconf.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-ruby.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-rust.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-sas.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-sass.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-scala.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-scss.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-scheme.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-smalltalk.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-smarty.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-sql.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-stylus.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-swift.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-tcl.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-textile.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-twig.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-typescript.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-verilog.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-vhdl.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-vim.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-wiki.js"></script> -->
+<!-- <script src="../../bower_components/prism/components/prism-yaml.js"></script> -->
+
+<!-- he for escaping -->
+<script src="../../bower_components/he/he.js"></script>
 <script type="text/javascript" src="al-code-cell.js"></script>
