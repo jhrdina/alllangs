@@ -3,4 +3,4 @@ dist
 bower_components
 .tmp
 .publish/
-app/elements/**/*.js
+app/**/*.js
