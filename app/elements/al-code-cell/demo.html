@@ -26,6 +26,26 @@ DEMO PAGE FOR COMPONENT 'al-code-cell'
 
   <dom-module id="x-app">
     <template>
+      <style>
+
+        .with-size {
+          width: 200px;
+          max-width: 200px;
+        }
+
+        .with-height {
+          height: 100px;
+          flex: 1;
+        }
+
+        .with-border {
+          border: 1px solid black;
+        }
+
+        td {
+          border: 1px solid green;
+        }
+      </style>
       <div>
         <h4>TEST</h4>
         <div class="horizontal-section">
@@ -38,6 +58,32 @@ DEMO PAGE FOR COMPONENT 'al-code-cell'
             Bound text:
           </p>
           <p>{{cellText}}</p>
+          <hr>
+          <table>
+            <tr>
+              <td>
+                <al-code-cell
+                  class="with-size"
+                  text="{{cellText}}"
+                  language="javascript">
+                </al-code-cell>
+              </td>
+              <td>
+                <al-code-cell
+                  class="with-border"
+                  language="javascript">
+                </al-code-cell>
+              </td>
+              <td>
+                <al-code-cell
+                  class="with-height with-border"
+                  language="javascript">
+                </al-code-cell>
+              </td>
+            </tr>
+          </table>
+
+
         </div>
       </div>
     </div>
@@ -55,7 +101,9 @@ DEMO PAGE FOR COMPONENT 'al-code-cell'
           }
         },
         ready: function() {
-          this.cellText = "function test() { var test; }";
+          this.cellText = "function GreatTestOfElement() {\n"
+            + "  var test;\n"
+            + "}";
         }
       });
 

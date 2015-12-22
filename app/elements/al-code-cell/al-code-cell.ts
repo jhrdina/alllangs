@@ -28,8 +28,10 @@ class AlCodeCell extends polymer.Base {
 
   @listen('click')
   startEdit() {
-    this.editedText = this.text;
-    this.editing = true;
+    if (!this.editing) {
+      this.editedText = this.text;
+      this.editing = true;
+    }
   }
 
   keyDown(keyEvent) {
