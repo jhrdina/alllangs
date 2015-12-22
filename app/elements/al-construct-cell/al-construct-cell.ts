@@ -5,6 +5,9 @@ class AlConstructCell extends polymer.Base {
   @property({ type: String, notify: true })
   text: String;
 
+  @property({ type: Boolean, value: false })
+  disabled: boolean;
+
   addConstructBelowTapped() {
     this.fire('add-construct-below');
   }
