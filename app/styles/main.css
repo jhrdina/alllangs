@@ -30,3 +30,7 @@ paper-toolbar#mainToolbar .title {
 .menu-separator {
   border-top: 1px solid #ddd;
 }
+
+paper-scroll-header-panel .content {
+  background: #ECECEC;
+}
