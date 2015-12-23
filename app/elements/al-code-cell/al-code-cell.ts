@@ -8,6 +8,9 @@ class AlCodeCell extends polymer.Base {
   @property({ type: String })
   language: string;
 
+  @property({ type: Boolean, value: false })
+  disabled: boolean;
+
   editing: boolean;
 
   editedText: string;
@@ -31,14 +34,14 @@ class AlCodeCell extends polymer.Base {
 
   @listen('click')
   startEdit() {
-    if (!this.editing) {
+    if (!this.disabled && !this.editing) {
       this.editedText = this.text;
       this.editing = true;
     }
   }
 
   keyDown(keyEvent) {
-    if (keyEvent.which === 13 && keyEvent.ctrlKey) {
+    if (!this.disabled && keyEvent.which === 13 && keyEvent.ctrlKey) {
       this.editing = false;
 
       this.set('text', this.editedText);

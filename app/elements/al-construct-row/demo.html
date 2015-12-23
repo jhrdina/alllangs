@@ -8,6 +8,7 @@ DEMO PAGE FOR COMPONENT 'al-construct-row'
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
     <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
+    <link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
     <link rel="import" href="al-construct-row.html">
 
     <style is="custom-style">
@@ -29,8 +30,9 @@ DEMO PAGE FOR COMPONENT 'al-construct-row'
       <div>
         <h4>TEST</h4>
         <div class="horizontal-section">
+          <paper-checkbox checked="{{disabled}}">Disabled</paper-checkbox>
           <table>
-            <al-construct-row construct="{{construct}}" languages="{{languages}}"></al-construct-row>
+            <al-construct-row construct="{{construct}}" languages="{{languages}}" disabled="[[disabled]]"></al-construct-row>
           </table>
         </div>
       </div>
@@ -49,6 +51,8 @@ DEMO PAGE FOR COMPONENT 'al-construct-row'
           }
         },
         ready: function() {
+          this.disabled = false;
+
           this.construct = {
             title: 'Appending value',
             solutions: {

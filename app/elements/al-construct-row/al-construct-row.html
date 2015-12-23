@@ -31,13 +31,17 @@
     </style>
 
     <td>
-      <al-construct-cell text="{{construct.title}}"></al-construct-cell>
+      <al-construct-cell
+        text="{{construct.title}}"
+        disabled="[[disabled]]">
+      </al-construct-cell>
     </td>
     <template is="dom-repeat" items="{{languageSolutions}}" as="solution">
       <td>
         <al-code-cell
           text="{{solution.text}}"
-          language="[[solution.prism]]">
+          language="[[solution.prism]]"
+          disabled="[[disabled]]">
         </al-code-cell>
       </td>
     </template>

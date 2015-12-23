@@ -40,7 +40,11 @@
           </tr>
           <!-- Section content -->
           <template is="dom-repeat" items="{{section.constructs}}" as="construct">
-            <al-construct-row construct="{{construct}}" languages="{{languages}}"></al-construct-row>
+            <al-construct-row
+              construct="{{construct}}"
+              languages="{{languages}}"
+              disabled="[[disabled]]">
+            </al-construct-row>
           </template>
         </template>
       </tbody>

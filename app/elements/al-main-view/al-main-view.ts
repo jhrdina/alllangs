@@ -8,6 +8,9 @@ class AlMainView extends polymer.Base
 
    @property({ type: Array, notify: true })
    sections: Array<Section>;
+
+   @property({ type: Boolean, value: false })
+   disabled: boolean;
 }
 
 AlMainView.register();

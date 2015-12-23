@@ -9,6 +9,9 @@ class AlConstructRow extends polymer.Base
    @property({ type: Array })
    languages: Array<Language>;
 
+   @property({ type: Boolean, value: false })
+   disabled: boolean;
+
    languageSolutions: Array<any>;
 
    @observe('languages.*,construct.*')
