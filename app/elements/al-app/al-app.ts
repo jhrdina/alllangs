@@ -5,6 +5,32 @@ class AlApp extends polymer.Base
 {
   sections = [
     {
+      title: 'General',
+      constructs: [
+        {
+          title: 'Multi-line string',
+          solutions: {
+            'cplusplus': `std::string HELP_MSG =
+    "great text\\n"
+    "with multiple\\n"
+    "lines\\n";`,
+            'js': `var HELP_MSG =
+  'great text\\n' +
+  'with multiple\\n' +
+  'lines';`
+          }
+        },
+        {
+          title: 'Call a static method',
+          solutions: {
+            'cplusplus': 'AmazingClass::method();',
+            'java': 'AmazingClass.method();',
+            'js': 'AmazingClass.method();'
+          }
+        },
+      ]
+    },
+    {
       title: 'Collections',
       constructs: [
         {
@@ -29,6 +55,36 @@ class AlApp extends polymer.Base
             'java': 'list.size();',
             'cplusplus': 'list.size();',
             'js': 'list.length'
+          }
+        },
+        {
+          title: 'Hash table',
+          solutions: {
+            'cplusplus': 'std::map<std::string, Message> table;',
+            'js': 'var table = {};'
+          }
+        },
+        {
+          title: 'Add item to hash table',
+          solutions: {
+            'cplusplus': 'table["text"] = Message(param);',
+            'js': 'table[\'text\'] = new Message(param);'
+          }
+        },
+        {
+          title: 'Check that key exists',
+          solutions: {
+            'cplusplus': 'bool exists = table.count("text");',
+            'js': 'var exists = table.hasOwnProperty(\'text\');'
+          }
+        },
+        {
+          title: 'Iterate over hashtable items',
+          solutions: {
+            'cplusplus': `for (auto const &iter : messagesByServer) {
+    std::string &key = iter.first;
+    Message &value = iter.second;
+}`
           }
         },
       ]
@@ -85,6 +141,44 @@ public:
       ]
     },
     {
+      title: 'Files',
+      constructs: [
+        {
+          title: 'Read file line by line',
+          solutions: {
+            'cplusplus': `#include <fstream>
+
+std::ifstream fr(“soubor.txt”);
+
+std::string line;
+while (std::getline(fr, line)) {
+    std::cout << line << std::endl;
+}
+
+fr.close();`,
+            'java': `try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+    String line;
+    while ((line = br.readLine()) != null) {
+       System.out.println(line);
+    }
+}`,
+            'js': `var fileInput = document.getElementById('fileInput');
+
+var reader = new FileReader();
+
+reader.onload = function(e) {
+  var lines = reader.result.split('\n');
+  for(var i = 0; i < lines.length; i++) {
+    console.log(lines[i]);
+  }
+}
+
+reader.readAsText(fileInput.files[0]);`
+          }
+        }
+      ]
+    },
+    {
       title: 'Conversions',
       constructs: [
         {
@@ -101,6 +195,11 @@ public:
 
   languages = [
     {
+      id: 'cplusplus',
+      name: 'C++',
+      prism: 'cpp'
+    },
+    {
       id: 'java',
       name: 'Java',
       prism: 'java'
@@ -110,11 +209,6 @@ public:
       name: 'JavaScript',
       prism: 'javascript'
     },
-    {
-      id: 'cplusplus',
-      name: 'C++',
-      prism: 'cpp'
-    }
   ];
 }
 
