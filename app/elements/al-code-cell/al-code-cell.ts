@@ -25,6 +25,7 @@ class AlCodeCell extends polymer.Base {
     if (text.length > 0) {
       this.$.codeviewer.innerHTML = he.encode(text);
       Prism.highlightElement(this.$.codeviewer);
+      this.scopeSubtree(this.$.codeviewer, false);
     }
   }
 
