@@ -18,6 +18,7 @@
         "!node_modules/**"
     ],
     "files": [
+        "app/elements/al-app/al-app.ts",
         "app/elements/al-code-cell/al-code-cell.ts",
         "app/elements/al-construct-cell/al-construct-cell.ts",
         "app/elements/al-construct-row/al-construct-row.ts",

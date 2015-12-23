@@ -1,0 +1,112 @@
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
+
+<!-- Iron elements -->
+<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+<!-- Paper elements -->
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../../bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
+
+<!-- Uncomment next block to enable Service Worker Support (2/2) -->
+<!--
+<link rel="import" href="../bower_components/platinum-sw/platinum-sw-cache.html">
+<link rel="import" href="../bower_components/platinum-sw/platinum-sw-register.html">
+-->
+
+<link rel="import" href="../al-main-view/al-main-view.html">
+
+<dom-module id="al-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+        @apply(--layout-vertical);
+      }
+
+      paper-toolbar#mainToolbar .title {
+        margin: 0;
+        overflow: visible;
+      }
+
+      .dropdown-content {
+        background-color: #fff;
+        color: #111111;
+      }
+
+      #mainMenu {
+        width: 11em;
+      }
+
+      .menu-separator {
+        border-top: 1px solid #ddd;
+      }
+
+      paper-scroll-header-panel {
+        @apply(--layout-flex);
+        background: #ECECEC;
+        /*overflow-x: auto;*/
+
+        --paper-scroll-header-container: {
+          overflow-x: auto;
+        };
+      }
+    </style>
+
+    <!-- Main Area -->
+    <paper-scroll-header-panel main id="headerPanelMain">
+
+      <!-- Main Toolbar -->
+      <paper-toolbar id="mainToolbar">
+        <div class="title">All Languages</div>
+        <paper-icon-button icon="search"></paper-icon-button>
+        <paper-menu-button horizontal-align="right">
+          <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
+          <div class="dropdown-content" id="mainMenu">
+            <paper-item on-tap="chooseLanguagesTapped">Choose languages</paper-item>
+            <paper-item on-tap="addLanguageTapped">Add language</paper-item>
+            <div class="menu-separator"></div>
+            <paper-item on-tap="importTapped">Import</paper-item>
+            <paper-item on-tap="exportTapped">Export</paper-item>
+            <div class="menu-separator"></div>
+            <paper-item on-tap="shortcutsTapped">Key shortcuts</paper-item>
+          </div>
+        </paper-menu-button>
+      </paper-toolbar>
+
+      <!-- Main Content -->
+      <al-main-view class="content" languages="{{languages}}" sections="{{sections}}"></al-main-view>
+    </paper-scroll-header-panel>
+
+    <paper-toast id="toast">
+      <span class="toast-hide-button" role="button" tabindex="0" onclick="app.$.toast.hide()">Ok</span>
+    </paper-toast>
+
+    <!-- Uncomment next block to enable Service Worker support (1/2) -->
+    <!--
+    <paper-toast id="caching-complete"
+                 duration="6000"
+                 text="Caching complete! This app will work offline.">
+    </paper-toast>
+
+    <platinum-sw-register auto-register
+                          clients-claim
+                          skip-waiting
+                          on-service-worker-installed="displayInstalledToast">
+      <platinum-sw-cache default-cache-strategy="fastest"
+                         cache-config-file="cache-config.json">
+      </platinum-sw-cache>
+    </platinum-sw-register>
+    -->
+  </template>
+</dom-module>
+
+<script type="text/javascript" src="al-app.js"></script>
