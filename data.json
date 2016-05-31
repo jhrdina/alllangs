@@ -7,7 +7,8 @@
           "title": "Multi-line string",
           "solutions": {
             "cplusplus": "std::string HELP_MSG =\n    \"great text\\n\"\n    \"with multiple\\n\"\n    \"lines\\n\";",
-            "js": "var HELP_MSG =\n  'great text\\n' +\n  'with multiple\\n' +\n  'lines';"
+            "js": "var HELP_MSG =\n  'great text\\n' +\n  'with multiple\\n' +\n  'lines';",
+            "java": "String HELP_MSG =\n    \"great text\\n\" +\n    \"with multiple\\n\" +\n    \"lines\";"
           }
         },
         {
@@ -51,21 +52,24 @@
           "title": "Hash table",
           "solutions": {
             "cplusplus": "std::map<std::string, Message> table;",
-            "js": "var table = {};"
+            "js": "var table = {};",
+            "java": "Map table = new HashMap();"
           }
         },
         {
           "title": "Add item to hash table",
           "solutions": {
             "cplusplus": "table[\"text\"] = Message(param);",
-            "js": "table['text'] = new Message(param);"
+            "js": "table['text'] = new Message(param);",
+            "java": "table.put(\"text\", new Message(param));"
           }
         },
         {
           "title": "Check that key exists",
           "solutions": {
             "cplusplus": "bool exists = table.count(\"text\");",
-            "js": "var exists = table.hasOwnProperty('text');"
+            "js": "var exists = table.hasOwnProperty('text');",
+            "java": "boolean exists = table.containsKey(\"text\");"
           }
         },
         {
