@@ -8,7 +8,9 @@
           "solutions": {
             "cplusplus": "std::string HELP_MSG =\n    \"great text\\n\"\n    \"with multiple\\n\"\n    \"lines\\n\";",
             "js": "var HELP_MSG =\n  'great text\\n' +\n  'with multiple\\n' +\n  'lines';",
-            "java": "String HELP_MSG =\n    \"great text\\n\" +\n    \"with multiple\\n\" +\n    \"lines\";"
+            "java": "String HELP_MSG =\n    \"great text\\n\" +\n    \"with multiple\\n\" +\n    \"lines\";",
+            "python": "HELP_MSG = \n\"\"\"great text\nwith multiple\nlines\"\"\"",
+            "csharp": "string HELP_MSG =\n@\"great text\nwith multiple\nlines\";"
           }
         },
         {
@@ -29,7 +31,9 @@
           "solutions": {
             "java": "ArrayList<String> list = new ArrayList<String>();",
             "cplusplus": "std::vector<std::string> list;",
-            "js": "var list = [];"
+            "js": "var list = [];",
+            "python": "list = []",
+            "csharp": "ArrayList list = new ArrayList();"
           }
         },
         {
@@ -37,7 +41,8 @@
           "solutions": {
             "java": "list.add(new Message(param));",
             "cplusplus": "list.push_back(Message(param));",
-            "js": "list.push(new Message(param));"
+            "js": "list.push(new Message(param));",
+            "csharp": "list.Add(new Message(param));"
           }
         },
         {
@@ -45,7 +50,8 @@
           "solutions": {
             "java": "list.size();",
             "cplusplus": "list.size();",
-            "js": "list.length"
+            "js": "list.length",
+            "csharp": "list.Count;"
           }
         },
         {
@@ -142,6 +148,11 @@
       "prism": "cpp"
     },
     {
+      "id": "csharp",
+      "name": "C#",
+      "prism": "csharp"
+    },
+    {
       "id": "java",
       "name": "Java",
       "prism": "java"
@@ -150,6 +161,11 @@
       "id": "js",
       "name": "JavaScript",
       "prism": "javascript"
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "prism": "python"
     }
   ]
 }
