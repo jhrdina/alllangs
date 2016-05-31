@@ -9,6 +9,7 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../my-icons.html">
 
 <!-- Paper elements -->
@@ -84,6 +85,11 @@
         pattern="/:page"
         data="{{routeData}}"
         tail="{{subroute}}"></app-route> -->
+    <iron-ajax
+      auto
+      url="/data.json"
+      handle-as="json"
+      last-response="{{model}}"></iron-ajax>
 
     <!-- Main Area -->
     <paper-scroll-header-panel main id="headerPanelMain">
@@ -110,8 +116,8 @@
       <!-- Main Content -->
       <al-main-view
         class="content"
-        languages="{{languages}}"
-        sections="{{sections}}"></al-main-view>
+        languages="{{model.languages}}"
+        sections="{{model.sections}}"></al-main-view>
     </paper-scroll-header-panel>
   </template>
 
