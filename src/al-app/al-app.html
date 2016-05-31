@@ -63,6 +63,10 @@
         border-top: 1px solid #ddd;
       }
 
+      #file {
+        display: none;
+      }
+
       paper-scroll-header-panel {
         @apply(--layout-flex);
         background: #ECECEC;
@@ -95,6 +99,7 @@
             <paper-item on-tap="addLanguageTapped">Add language</paper-item>
             <div class="menu-separator"></div>
             <paper-item on-tap="importTapped">Import</paper-item>
+            <input type="file" id="file" on-change="_onFileSelected"/>
             <paper-item on-tap="exportTapped">Export</paper-item>
             <div class="menu-separator"></div>
             <paper-item on-tap="shortcutsTapped">Key shortcuts</paper-item>
