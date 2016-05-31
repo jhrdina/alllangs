@@ -12,6 +12,9 @@
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../my-icons.html">
 
+<!-- App Shell -->
+<link rel="import" href="../../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+
 <!-- Paper elements -->
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
@@ -89,7 +92,13 @@
       auto
       url="https://raw.githubusercontent.com/jhrdina/alllangs/master/data.json"
       handle-as="json"
-      last-response="{{model}}"></iron-ajax>
+      last-response="{{liveModel}}">
+    </iron-ajax>
+    <app-indexeddb-mirror
+      key="model"
+      data="{{liveModel}}"
+      persisted-data="{{model}}">
+    </app-indexeddb-mirror>
 
     <!-- Main Area -->
     <paper-scroll-header-panel main id="headerPanelMain">
@@ -97,7 +106,7 @@
       <!-- Main Toolbar -->
       <paper-toolbar id="mainToolbar">
         <div class="title">All Languages</div>
-        <paper-icon-button icon="search"></paper-icon-button>
+        <!-- <paper-icon-button icon="search"></paper-icon-button>
         <paper-menu-button horizontal-align="right">
           <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
           <div class="dropdown-content" id="mainMenu">
@@ -110,14 +119,14 @@
             <div class="menu-separator"></div>
             <paper-item on-tap="shortcutsTapped">Key shortcuts</paper-item>
           </div>
-        </paper-menu-button>
+        </paper-menu-button> -->
       </paper-toolbar>
 
       <!-- Main Content -->
       <al-main-view
         class="content"
         languages="{{model.languages}}"
-        sections="{{model.sections}}"></al-main-view>
+        sections="{{model.sections}}" disabled></al-main-view>
     </paper-scroll-header-panel>
   </template>
 
