@@ -42,7 +42,8 @@
         <al-code-cell
           text="{{solution.text}}"
           language="[[solution.prism]]"
-          disabled="[[disabled]]">
+          disabled="[[disabled]]"
+          on-text-changed="_onSolutionChanged">
         </al-code-cell>
       </td>
     </template>
