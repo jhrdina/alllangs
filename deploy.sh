@@ -25,7 +25,8 @@ index.html \
 manifest.json \
 service-worker.js \
 sw-precache-config.js \
-bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror-worker.js
+bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror-worker.js \
+bower_components/webcomponentsjs/webcomponents-lite.min.js
 
 
 #git clone -b gh-pages https://github.com/jhrdina/alllangs.git .
