@@ -5,10 +5,6 @@ class AlApp extends polymer.Base
 {
   model: any;
 
-  _onNewData(e) {
-    this.model = e.detail.value;
-  }
-
   _onFileSelected(e) {
     var file = e.target.files[0];
     if (!file) {

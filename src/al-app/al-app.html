@@ -27,6 +27,7 @@
 <link rel="import" href="../../bower_components/paper-styles/default-theme.html">
 
 <link rel="import" href="../al-main-view/al-main-view.html">
+<link rel="import" href="../al-storage/al-storage.html">
 
 <dom-module id="al-app">
 
@@ -88,17 +89,8 @@
         pattern="/:page"
         data="{{routeData}}"
         tail="{{subroute}}"></app-route> -->
-    <iron-ajax
-      auto
-      url="https://raw.githubusercontent.com/jhrdina/alllangs/master/data.json"
-      handle-as="json"
-      last-response="{{liveModel}}">
-    </iron-ajax>
-    <app-indexeddb-mirror
-      key="model"
-      data="{{liveModel}}"
-      on-persisted-data-changed="_onNewData">
-    </app-indexeddb-mirror>
+    <!--  -->
+    <al-storage id="storage" model="{{model}}"></al-storage>
 
     <!-- Main Area -->
     <paper-scroll-header-panel main id="headerPanelMain">

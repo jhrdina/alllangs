@@ -37,7 +37,7 @@
         </tr>
       </thead>
       <tbody>
-        <template is="dom-repeat" items="{{sections}}" as="section">
+        <template is="dom-repeat" items="{{sections}}" as="section" index-as="sectionIndex">
           <!-- Section header -->
           <tr>
             <td colspan="100">
@@ -45,11 +45,17 @@
             </td>
           </tr>
           <!-- Section content -->
-          <template is="dom-repeat" items="{{section.constructs}}" as="construct">
+          <template is="dom-repeat" items="{{section.constructs}}" as="construct" index-as="constructIndex">
             <al-construct-row
               construct="{{construct}}"
               languages="{{languages}}"
-              disabled="[[disabled]]">
+              disabled="[[disabled]]"
+              on-change-solution="_onChangeSolution"
+              on-add-construct-below="_onAddConstructBelow"
+              on-delete="_onDelete"
+              on-add-section-below="_onAddSectionBelow"
+              on-move-up="_onMoveUp"
+              on-move-down="_onMoveDown">
             </al-construct-row>
           </template>
         </template>

@@ -1,0 +1,26 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
+
+<dom-module id="al-storage">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <iron-ajax
+      auto
+      url="/data.json"
+      handle-as="json"
+      last-response="{{model}}">
+    </iron-ajax>
+    <app-indexeddb-mirror
+      key="model"
+      data="{{liveModel}}"
+      on-persisted-data-changed="_onNewData">
+    </app-indexeddb-mirror>
+
+  </template>
+  <script src="al-storage.js"></script>
+</dom-module>

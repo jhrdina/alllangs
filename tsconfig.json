@@ -10,7 +10,9 @@
         "removeComments": true,
         "noLib": false,
         "preserveConstEnums": true,
-        "suppressImplicitAnyIndexErrors": true
+        "suppressImplicitAnyIndexErrors": true,
+        "sourceMap": true,
+        "inlineSourceMap": true
     },
     "filesGlob": [
         "src/**/*.ts",
@@ -23,12 +25,8 @@
         "src/al-construct-cell/al-construct-cell.ts",
         "src/al-construct-row/al-construct-row.ts",
         "src/al-main-view/al-main-view.ts",
-        "src/al-model/construct.ts",
-        "src/al-model/language.ts",
-        "src/al-model/languages-collection.ts",
-        "src/al-model/model.ts",
-        "src/al-model/section.ts",
-        "src/al-section-header/al-section-header.ts"
+        "src/al-section-header/al-section-header.ts",
+        "src/al-storage/al-storage.ts"
     ],
     "atom": {
         "rewriteTsconfig": true

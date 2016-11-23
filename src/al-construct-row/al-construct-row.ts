@@ -4,23 +4,23 @@
 class AlConstructRow extends polymer.Base
 {
    @property({ type: Object, notify: true })
-   construct: Construct;
+   construct: AlConstruct;
 
    @property({ type: Array })
-   languages: Array<Language>;
+   languages: AlLanguage[];
 
    @property({ type: Boolean, value: false })
    disabled: boolean;
 
-   languageSolutions: Array<any>;
+   languageSolutions: any[];
    languageSolutionsLock: boolean;
 
-   @observe('languages.*,construct.*')
+   @observe('languages.*, construct.*')
    modelChanged(lang, cons) {
      var that = this;
      this.languageSolutionsLock = true;
      // Create cell for each language
-     this.languageSolutions = this.languages.map((value: Language, index: number, array: Language[]) => {
+     this.languageSolutions = this.languages.map((value: AlLanguage, index: number, array: AlLanguage[]) => {
        return {
          text: that.construct.solutions[value.id] || '',
          prism: value.prism
@@ -30,17 +30,22 @@ class AlConstructRow extends polymer.Base
    }
 
    private _onSolutionChanged(e): void {
-     if (!this.languageSolutionsLock) {
+     //  if (!this.languageSolutionsLock) {
        var languageIndex = e.model.index;
-       var languageId = this.languages[languageIndex].id;
+     //    var languageId = this.languages[languageIndex].id;
 
-       if (e.model.solution.text) {
-         this.set('construct.solutions.' + languageId, e.model.solution.text);
-       } else {
-         delete this.construct.solutions[languageId];
-         this.notifyPath('construct.solutions.' + languageId, undefined);
-       }
-     }
+       this.fire('change-solution', {
+         languageId: this.languages[languageIndex].id,
+         text: e.model.solution.text
+       });
+
+      //  if (e.model.solution.text) {
+      //    this.set('construct.solutions.' + languageId, e.model.solution.text);
+      //  } else {
+      //    delete this.construct.solutions[languageId];
+      //    this.notifyPath('construct.solutions.' + languageId, undefined);
+      //  }
+     //}
    }
 }
 
