@@ -1,6 +1,5 @@
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
 
 <link rel="import" href="../../bower_components/app-route/app-location.html">
 <link rel="import" href="../../bower_components/app-route/app-route.html">
@@ -30,11 +29,9 @@
 <link rel="import" href="../al-storage/al-storage.html">
 
 <dom-module id="al-app">
-
   <template>
-
     <style>
-
+      /* Presunout z rootu do hostu */
       :root {
         --dark-primary-color:       #5D4037;
         --primary-color:            #795548;
@@ -92,7 +89,7 @@
     <!--  -->
     <al-storage id="storage" model="{{model}}"></al-storage>
 
-    <!-- Main Area -->
+    <!-- Main content -->
     <paper-scroll-header-panel main id="headerPanelMain">
 
       <!-- Main Toolbar -->
@@ -117,11 +114,94 @@
       <!-- Main Content -->
       <al-main-view
         class="content"
-        languages="{{model.languages}}"
-        sections="{{model.sections}}"></al-main-view>
+        languages="[[model.languages]]"
+        sections="[[model.sections]]"
+        on-solution-tap="_dispatch"
+        on-solution-keydown="_dispatch"
+        on-solution-changed="_dispatch"
+        ></al-main-view>
     </paper-scroll-header-panel>
   </template>
 
-  <script type="text/javascript" src="al-app.js"></script>
+  <script>
+    Polymer({
+      is: 'al-app',
 
+      properties: {
+        page: {
+          type: String,
+          reflectToAttribute: true,
+          observer: '_pageChanged'
+        },
+      },
+
+      observers: [
+        '_routePageChanged(routeData.page)'
+      ],
+
+      _dispatch: function(event) {
+        this.$.storage[this._camelCase(event.type)](event.detail);
+      },
+
+      _camelCase: function(input) {
+          return input.toLowerCase().replace(/-(.)/g, function(match, group1) {
+              return group1.toUpperCase();
+          });
+      },
+
+      _onFileSelected: function(e) {
+        var file = e.target.files[0];
+        if (!file) {
+          return;
+        }
+
+        var reader = new FileReader();
+        reader.addEventListener('load', e => {
+          this.$.storage.parseJSON(e.target.result);
+        });
+
+        reader.readAsText(file);
+      },
+
+      exportTapped: function() {
+        const data = this.$.storage.exportJSON()
+        this.download('data.json', data);
+      },
+
+      download: function(filename, data) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+
+        // TODO: Append to local DOM
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+      },
+
+      importTapped: function() {
+        this.$.file.click();
+      },
+
+      // Default routing stuff
+
+      // _routePageChanged: function(page) {
+      //   this.page = page || 'view1';
+      // },
+
+      // _pageChanged: function(page) {
+      //   // Load page import on demand. Show 404 page if fails
+      //   var resolvedPageUrl = this.resolveUrl(`../my-${page}/my-${page}.html`);
+      //   this.importHref(resolvedPageUrl, null, this._showPage404, true);
+      // },
+
+      // _showPage404: function() {
+      //   this.page = 'view404';
+      // },
+    });
+  </script>
 </dom-module>

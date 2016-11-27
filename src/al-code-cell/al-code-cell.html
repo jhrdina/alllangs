@@ -1,9 +1,14 @@
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
 <link rel="import" href="../../bower_components/paper-styles/default-theme.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+
+<!--
+`al-code-cell`
+Editable text cell with syntax highlighting
+
+@demo demo.html
+-->
 
 <dom-module id="al-code-cell">
   <link rel="import" type="css" href="../../bower_components/prism/themes/prism.css">
@@ -60,17 +65,54 @@
         @apply(--layout-flex-auto);
         width: 100%;
       }
-
     </style>
 
-    <pre hidden$="[[editing]]"><code id="codeviewer" class$="{{getPrismLanguageClass(language)}}"></code></pre>
+    <pre hidden$="[[editing]]"><code id="codeviewer" class$="language-[[language]]"></code></pre>
     <iron-autogrow-textarea
-      hidden$="{{!editing}}"
-      on-keydown="keyDown"
-      bind-value="{{editedText}}">
+      hidden$="[[!editing]]"
+      value="[[text]]"
+      on-value-changed="_textChanged">
     </iron-autogrow-textarea>
 
   </template>
+
+  <script>
+    Polymer({
+
+      is: 'al-code-cell',
+
+      properties: {
+        text: {
+          type: String,
+          observer: '_renderPrism'
+        },
+        language: {
+          type: String,
+          observer: '_renderPrism'
+        },
+        editing: {
+          type: Boolean,
+          value: false,
+          observer: '_renderPrism'
+        }
+      },
+      // observers: [
+      //   '_renderPrism(text, language)'
+      // ],
+
+      _renderPrism: function() {
+        if (this.editing || !this.text) return;
+
+        this.$.codeviewer.innerHTML = he.encode(this.text);
+        Prism.highlightElement(this.$.codeviewer);
+        this.scopeSubtree(this.$.codeviewer, false);
+      },
+
+      _textChanged: function(event, detail) {
+        this.fire('text-changed', detail);
+      }
+    });
+  </script>
 </dom-module>
 
 <script type="text/javascript" src="../../bower_components/prism/prism.js"></script>
@@ -189,4 +231,3 @@
 
 <!-- he for escaping -->
 <script type="text/javascript" src="../../bower_components/he/he.js"></script>
-<script type="text/javascript" src="al-code-cell.js"></script>

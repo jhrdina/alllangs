@@ -1,36 +1,38 @@
-### About
+# \<All Languages\>
 
-One day, this will be a site with a huge filterable table full of common programming constructs written in different languages. Data will be stored here on GitHub and users will be able to add more constructs and languages via pull-requests... One day...
+Frequent constructs written in many programming languages
 
-### Install dependencies
+## Install the Polymer-CLI
 
-#### Quick-start
+First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
 
-With Node.js installed, run the following one liner from the root of your Polymer Starter Kit download:
+## Viewing Your Application
 
-```sh
-npm install -g gulp bower && npm install && bower install
+```
+$ polymer serve
 ```
 
-### Development workflow
+## Building Your Application
 
-#### Compile TypeScript
-
-Use `tsc` command or Atom built-in typescript support to build JavaScript files from TypeScript.
-
-#### Serve / watch
-
-```sh
-gulp serve
+```
+$ polymer build
 ```
 
-This outputs an IP address you can use to locally test and another that can be used on devices connected to your network.
+This will create a `build/` folder with `bundled/` and `unbundled/` sub-folders
+containing a bundled (Vulcanized) and unbundled builds, both run through HTML,
+CSS, and JS optimizers.
 
-#### Build & Vulcanize
+You can serve the built versions by giving `polymer serve` a folder to serve
+from:
 
-```sh
-tsc
-gulp
+```
+$ polymer serve build/bundled
 ```
 
-Build and optimize the current project, ready for deployment. This includes vulcanization as well as image, script, stylesheet and HTML optimization and minification.
+## Running Tests
+
+```
+$ polymer test
+```
+
+Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.

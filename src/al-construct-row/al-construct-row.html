@@ -1,6 +1,5 @@
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
 
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 
@@ -33,21 +32,59 @@
 
     <td>
       <al-construct-cell
-        text="{{construct.title}}"
-        disabled="[[disabled]]">
+        text="[[construct.title]]"
+        editing="[[construct.editing]]"
+        on-text-changed="_onTitleChanged">
       </al-construct-cell>
     </td>
-    <template is="dom-repeat" items="{{languageSolutions}}" as="solution">
+    <template is="dom-repeat" items="[[construct.solutions]]" as="solution">
       <td>
         <al-code-cell
-          text="{{solution.text}}"
+          text="[[solution.text]]"
           language="[[solution.prism]]"
-          disabled="[[disabled]]"
-          on-text-changed="_onSolutionChanged">
+          editing="[[solution.editing]]"
+          on-text-changed="_onSolutionChanged"
+          on-tap="_onSolutionTap"
+          on-keydown="_onSolutionKeydown">
         </al-code-cell>
       </td>
     </template>
   </template>
-</dom-module>
 
-<script type="text/javascript" src="al-construct-row.js"></script>
+  <script>
+    Polymer({
+
+      is: 'al-construct-row',
+
+      properties: {
+        construct: {
+          type: Object
+        },
+      },
+
+      _onTitleChanged: function(event) {
+        this.fire('construct-title-change', event.detail);
+      },
+
+      _onSolutionChanged: function(event) {
+        this.fire('solution-changed', {
+          language: event.model.solution.language,
+          value: event.detail.value
+        });
+      },
+
+      _onSolutionTap: function(event) {
+        this.fire('solution-tap', {
+          language: event.model.solution.language,
+        });
+      },
+
+      _onSolutionKeydown: function(event) {
+        this.fire('solution-keydown', {
+          language: event.model.solution.language,
+          keydownEvent: event
+        });
+      }
+    });
+  </script>
+</dom-module>

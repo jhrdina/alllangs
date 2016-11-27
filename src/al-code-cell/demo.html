@@ -1,57 +1,62 @@
 <!doctype html>
-<!--
-DEMO PAGE FOR COMPONENT 'al-code-cell'
--->
-<html>
+<html lang="en">
   <head>
-    <title>DEMO al-code-cell</title>
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>al-code-cell demo</title>
+
     <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
     <link rel="import" href="al-code-cell.html">
 
-    <style is="custom-style">
-      .horizontal-section {
-        min-width: 100px;
+    <style>
+      body {
+        background-color: #fafafa;
       }
-
     </style>
-
   </head>
+  <body>
+    <x-demo></x-demo>
+    <dom-module id="x-demo">
+      <template>
+        <style>
+          .horizontal-section {
+            min-width: 200px;
+            max-width: 400px;
+          }
+          h3 {
+            margin: 20px 0 10px 0;
+            border-bottom: 1px solid #ccc;
+          }
 
-  <body unresolved>
-  <span id="browser-sync-binding"></span>
+          .with-size {
+            width: 100px;
+            max-width: 200px;
+          }
 
-  <x-app></x-app>
+          .with-height {
+            height: 100px;
+            flex: 1;
+          }
 
-  <dom-module id="x-app">
-    <template>
-      <style>
+          .with-border {
+            border: 1px solid black;
+          }
 
-        .with-size {
-          width: 100px;
-          max-width: 200px;
-        }
+          td {
+            border: 1px solid green;
+          }
+        </style>
+        <div class="vertical-section-container centered">
 
-        .with-height {
-          height: 100px;
-          flex: 1;
-        }
-
-        .with-border {
-          border: 1px solid black;
-        }
-
-        td {
-          border: 1px solid green;
-        }
-      </style>
-      <div>
-        <h4>TEST</h4>
-        <div class="horizontal-section">
-          <al-code-cell
+          <h3>Basic el-code-cell demo</h3>
+          <div class="horizontal-section">
+            <al-code-cell
             text="{{cellText}}"
-            language="javascript">
+            language="javascript"
+            editing="[[editing]]"
+            cell="1">
           </al-code-cell>
           <hr>
           <p>
@@ -65,7 +70,8 @@ DEMO PAGE FOR COMPONENT 'al-code-cell'
                 <al-code-cell
                   class="with-size"
                   text="{{cellText}}"
-                  language="javascript">
+                  language="javascript"
+                  on-tap="onCodeCellTap">
                 </al-code-cell>
               </td>
               <td>
@@ -82,33 +88,33 @@ DEMO PAGE FOR COMPONENT 'al-code-cell'
               </td>
             </tr>
           </table>
+          </div>
+
         </div>
-      </div>
-    </div>
-  </template>
-  </dom-module>
+      </template>
+    </dom-module>
 
-
-  <script>
-  Polymer({
-        is: 'x-app',
-        properties: {
-          test: {
-            type: String,
-            value: 'PolymerTS'
-          }
-        },
+    <script>
+      Polymer({
+        is: 'x-demo',
         ready: function() {
           this.cellText = "function GreatTestOfElement() {\n"
             + "  var test;\n"
             + "}";
+
+          const els = this.root.querySelectorAll('al-code-cell');
+          els.forEach((el) => {
+            this.monitor(el, 'click');
+            this.monitor(el, 'text-changed');
+            this.monitor(el, 'keydown');
+          });
+        },
+        monitor(el, type) {
+          el.addEventListener(type, function(e) {
+            console.log('[' + e.type + ']', e.detail);
+          });
         }
       });
-
-        (function(document) {
-          'use strict';
-        })(document);
-  </script>
-
+    </script>
   </body>
 </html>

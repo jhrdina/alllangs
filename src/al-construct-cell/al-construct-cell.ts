@@ -2,7 +2,7 @@
 
 @component('al-construct-cell')
 class AlConstructCell extends polymer.Base {
-  @property({ type: String, notify: true })
+  @property({ type: String })
   text: String;
 
   @property({ type: Boolean, value: false })

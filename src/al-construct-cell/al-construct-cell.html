@@ -49,7 +49,10 @@
       }
     </style>
 
-    <iron-autogrow-textarea class="content" bind-value="{{text}}" disabled="[[disabled]]">
+    <iron-autogrow-textarea
+      class="content"
+      bind-value="{{text}}"
+      disabled="[[disabled]]">
     </iron-autogrow-textarea>
     <template is="dom-if" if="[[!disabled]]">
       <div class="toolbar">

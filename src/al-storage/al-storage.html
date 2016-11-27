@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
 
 <dom-module id="al-storage">
+  <script src="../../bower_components/freezer-js/build/freezer.js"></script>
   <template>
     <style>
       :host {
@@ -13,7 +14,7 @@
       auto
       url="/data.json"
       handle-as="json"
-      last-response="{{model}}">
+      on-last-response-changed="_onNewData">
     </iron-ajax>
     <app-indexeddb-mirror
       key="model"
@@ -22,5 +23,94 @@
     </app-indexeddb-mirror>
 
   </template>
-  <script src="al-storage.js"></script>
+  <script>
+    Polymer({
+      is: 'al-storage',
+
+      properties: {
+        model: {
+          type: Object,
+          notify: true
+        },
+      },
+
+      _onNewData: function(e) {
+        this._updateModel(e.detail.value);
+      },
+
+      _updateModel: function(o) {
+        this.freezer = new Freezer(Object.assign({}, o, {
+          sections: o.sections.map((section, index) => Object.assign({}, section, {
+            constructs: section.constructs.map((construct) => Object.assign({}, construct, {
+              solutions: o.languages.map((lang) => ({
+                text: construct.solutions[lang.id] || "",
+                language: lang.id,
+                prism: lang.prism,
+                editing: false
+              }))
+            }))
+          }))
+        }));
+        this.freezer.on('update', (m) => {
+          this.model = m;
+        });
+        this.model = this.freezer.get();
+      },
+
+      parseJSON: function(json) {
+        this._updateModel(JSON.parse(json));
+      },
+
+      exportJSON: function() {
+        const solutionsToObject = function(solutions) {
+          const obj = {};
+          for (let i = 0; i < solutions.length; ++i) {
+            obj[solutions[i].language] = solutions[i].text
+          }
+          return obj;
+        }
+
+        // TODO: Make me more restrictive
+        const ex = Object.assign({}, this.model, {
+          sections: this.model.sections.map((section) => Object.assign({}, section, {
+            constructs: section.constructs.map((construct) => Object.assign({}, construct, {
+              solutions: solutionsToObject(construct.solutions)
+            }))
+          }))
+        });
+
+        return JSON.stringify(ex, null, 2);
+      },
+
+      // ACTIONS
+
+      solutionTap: function(detail) {
+        this.model
+          .sections[detail.sectionIndex]
+          .constructs[detail.constructIndex]
+          .solutions.find((solution) => solution.language === detail.language)
+          .set({editing: true});
+      },
+
+      solutionKeydown: function(detail) {
+        if (!(detail.keydownEvent.ctrlKey && detail.keydownEvent.keyCode === 13)) {
+          return;
+        }
+
+        this.model
+          .sections[detail.sectionIndex]
+          .constructs[detail.constructIndex]
+          .solutions.find((solution) => solution.language === detail.language)
+          .set({editing: false});
+      },
+
+      solutionChanged: function(detail) {
+        this.model
+          .sections[detail.sectionIndex]
+          .constructs[detail.constructIndex]
+          .solutions.find((solution) => solution.language === detail.language)
+          .set({text: detail.value});
+      }
+    });
+  </script>
 </dom-module>
