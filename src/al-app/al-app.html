@@ -15,6 +15,7 @@
 <link rel="import" href="../../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
 
 <!-- Paper elements -->
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
@@ -47,6 +48,11 @@
         line-height: initial;
       }
 
+      iron-pages,
+      paper-scroll-header-panel {
+        @apply(--layout-fullbleed);
+      }
+
       paper-toolbar#mainToolbar .title {
         margin: 0;
         overflow: visible;
@@ -70,7 +76,7 @@
       }
 
       paper-scroll-header-panel {
-        @apply(--layout-flex);
+        /*@apply(--layout-flex);*/
         background: #ECECEC;
         /*overflow-x: auto;*/
 
@@ -80,67 +86,97 @@
       }
     </style>
 
-    <!-- <app-location route="{{route}}"></app-location>
+    <!-- Routing -->
+
+    <app-location route="{{route}}"></app-location>
     <app-route
         route="{{route}}"
         pattern="/:page"
         data="{{routeData}}"
-        tail="{{subroute}}"></app-route> -->
-    <!--  -->
+        tail="{{subroute}}">
+    </app-route>
+
+    <!-- Storage -->
+
     <al-storage id="storage" model="{{model}}"></al-storage>
 
     <!-- Main content -->
-    <paper-scroll-header-panel main id="headerPanelMain">
 
-      <!-- Main Toolbar -->
-      <paper-toolbar id="mainToolbar">
-        <div class="title">All Languages</div>
-        <paper-icon-button icon="search"></paper-icon-button>
-        <paper-menu-button horizontal-align="right">
-          <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
-          <div class="dropdown-content" id="mainMenu">
-            <paper-item on-tap="chooseLanguagesTapped">Choose languages</paper-item>
-            <paper-item on-tap="addLanguageTapped">Add language</paper-item>
-            <div class="menu-separator"></div>
-            <paper-item on-tap="importTapped">Import</paper-item>
-            <input type="file" id="file" on-change="_onFileSelected"/>
-            <paper-item on-tap="exportTapped">Export</paper-item>
-            <div class="menu-separator"></div>
-            <paper-item on-tap="shortcutsTapped">Key shortcuts</paper-item>
-          </div>
-        </paper-menu-button>
-      </paper-toolbar>
+    <iron-pages
+      selected="[[model.page]]"
+      attr-for-selected="name"
+      fallback-selection="view404"
+      role="main">
 
-      <!-- Main Content -->
-      <al-main-view
-        class="content"
-        languages="[[model.languages]]"
-        sections="[[model.sections]]"
-        on-solution-tap="_dispatch"
-        on-solution-keydown="_dispatch"
-        on-solution-changed="_dispatch"
-        ></al-main-view>
-    </paper-scroll-header-panel>
+      <paper-scroll-header-panel main id="headerPanelMain" name="main">
+
+        <!-- Main Toolbar -->
+        <paper-toolbar id="mainToolbar">
+          <div class="title">All Languages</div>
+          <paper-icon-button icon="search"></paper-icon-button>
+          <paper-menu-button horizontal-align="right">
+            <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
+            <div class="dropdown-content" id="mainMenu">
+              <paper-item on-tap="_onChooseLanguagesTap">Choose languages</paper-item>
+              <paper-item on-tap="addLanguageTapped">Add language</paper-item>
+              <div class="menu-separator"></div>
+              <paper-item on-tap="importTapped">Import</paper-item>
+              <input type="file" id="file" on-change="_onFileSelected"/>
+              <paper-item on-tap="exportTapped">Export</paper-item>
+              <div class="menu-separator"></div>
+              <paper-item on-tap="shortcutsTapped">Key shortcuts</paper-item>
+            </div>
+          </paper-menu-button>
+        </paper-toolbar>
+
+        <!-- Main Content -->
+        <al-main-view
+          class="content"
+          languages="[[model.languages]]"
+          sections="[[model.sections]]"
+          on-solution-tap="_dispatch"
+          on-solution-keydown="_dispatch"
+          on-solution-changed="_dispatch"
+          ></al-main-view>
+      </paper-scroll-header-panel>
+
+      <paper-scroll-header-panel name="filter">
+        <paper-toolbar id="mainToolbar">
+          <paper-icon-button
+            icon="arrow-back"
+            on-tap="_onCloseFilterSettingsTap"></paper-icon-button>
+          <div class="title">Show Languages</div>
+        </paper-toolbar>
+
+
+        <template is="dom-repeat" items=[[model.languages]] as=language>
+          <paper-checkbox checked>[[language.name]]</paper-checkbox>
+        </template>
+
+      </paper-scroll-header-panel>
+
+    </iron-pages>
   </template>
 
   <script>
     Polymer({
       is: 'al-app',
 
-      properties: {
-        page: {
-          type: String,
-          reflectToAttribute: true,
-          observer: '_pageChanged'
-        },
-      },
-
       observers: [
-        '_routePageChanged(routeData.page)'
+        '_routePageChanged(routeData.page)',
+        '_modelPageChanged(model.page)'
       ],
 
       _dispatch: function(event) {
         this.$.storage[this._camelCase(event.type)](event.detail);
+      },
+
+      _onChooseLanguagesTap: function(event) {
+        this.$.storage.openFilterSettings();
+      },
+
+      _onCloseFilterSettingsTap: function(event) {
+        this.$.storage.closeFilterSettings();
       },
 
       _camelCase: function(input) {
@@ -187,11 +223,15 @@
         this.$.file.click();
       },
 
-      // Default routing stuff
+      // Routing
 
-      // _routePageChanged: function(page) {
-      //   this.page = page || 'view1';
-      // },
+      _modelPageChanged: function(page) {
+        this.set('routeData.page', page);
+      },
+
+      _routePageChanged: function(page) {
+        this.$.storage.routePageChanged({page});
+      },
 
       // _pageChanged: function(page) {
       //   // Load page import on demand. Show 404 page if fails

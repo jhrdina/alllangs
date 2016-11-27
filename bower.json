@@ -28,7 +28,8 @@
     "iron-autogrow-textarea": "^1.0.12",
     "iron-icons": "^1.1.3",
     "iron-ajax": "^1.2.0",
-    "freezer-js": "freezer#^0.11.2"
+    "freezer-js": "freezer#^0.11.2",
+    "paper-checkbox": "polymerelements/paper-checkbox#^1.4.1"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

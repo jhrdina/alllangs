@@ -34,12 +34,23 @@
         },
       },
 
+      ready: function() {
+        this.freezer = new Freezer({
+          page: 'main'
+        });
+        this.freezer.on('update', (m) => {
+          //console.log("update");
+          this.model = m;
+        });
+        this.model = this.freezer.get();
+      },
+
       _onNewData: function(e) {
         this._updateModel(e.detail.value);
       },
 
       _updateModel: function(o) {
-        this.freezer = new Freezer(Object.assign({}, o, {
+        this.model.set(Object.assign({}, o, {
           sections: o.sections.map((section, index) => Object.assign({}, section, {
             constructs: section.constructs.map((construct) => Object.assign({}, construct, {
               solutions: o.languages.map((lang) => ({
@@ -51,10 +62,6 @@
             }))
           }))
         }));
-        this.freezer.on('update', (m) => {
-          this.model = m;
-        });
-        this.model = this.freezer.get();
       },
 
       parseJSON: function(json) {
@@ -110,6 +117,21 @@
           .constructs[detail.constructIndex]
           .solutions.find((solution) => solution.language === detail.language)
           .set({text: detail.value});
+      },
+
+      openFilterSettings: function() {
+        this.model
+          .set('page', 'filter');
+      },
+
+      closeFilterSettings: function() {
+        this.model
+          .set('page', 'main');
+      },
+
+      routePageChanged: function(detail) {
+        this.model
+          .set('page', detail.page || 'main');
       }
     });
   </script>
