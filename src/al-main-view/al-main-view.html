@@ -31,7 +31,7 @@
         <tr>
           <th>Construct</th>
           <!-- Language titles -->
-          <template is="dom-repeat" items="{{languages}}" as="language">
+          <template is="dom-repeat" items="{{languages}}" as="language" filter="_isVisible">
             <th>{{ language.name }}</th>
           </template>
         </tr>
@@ -45,9 +45,10 @@
             </td>
           </tr>
           <!-- Section content -->
-          <template is="dom-repeat" items="{{section.constructs}}" as="construct" index-as="constructIndex">
+          <template is="dom-repeat" items="[[section.constructs]]" as="construct" index-as="constructIndex">
             <al-construct-row
               construct="[[construct]]"
+              visible-languages="[[_computeVisibleLanguages(languages)]]"
               on-construct-title-change="_bubble"
               on-solution-changed="_bubble"
               on-solution-tap="_bubble"
@@ -86,6 +87,16 @@
           constructIndex: event.model.constructIndex
         }));
       },
+
+      _isVisible: function(language) {
+        return language.visible;
+      },
+
+      _computeVisibleLanguages: function(languages) {
+        return languages.reduce((acc, lang) => {
+          return lang.visible ? acc.concat([lang.id]) : acc;
+        }, []);
+      }
     });
   </script>
 </dom-module>

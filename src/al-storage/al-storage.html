@@ -60,6 +60,9 @@
                 editing: false
               }))
             }))
+          })),
+          languages: o.languages.map((language) => Object.assign({}, language, {
+            visible: true
           }))
         }));
       },
@@ -132,6 +135,12 @@
       routePageChanged: function(detail) {
         this.model
           .set('page', detail.page || 'main');
+      },
+
+      changeLanguageVisibility: function(detail) {
+        this.model
+          .languages.find((language) => language.id === detail.language)
+          .set({ visible: detail.visible });
       }
     });
   </script>

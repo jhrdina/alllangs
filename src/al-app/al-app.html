@@ -49,15 +49,34 @@
         line-height: initial;
       }
 
+      paper-toolbar {
+        --paper-toolbar-content: {
+          padding-right: 4px;
+          padding-left: 8px;
+        };
+      }
+
+      paper-item {
+        cursor: pointer;
+      }
+
       iron-pages,
       paper-scroll-header-panel {
         @apply(--layout-fullbleed);
       }
 
-      paper-toolbar#mainToolbar .title {
-        margin: 0 0 0 4px;
+      paper-menu-button {
+        padding: 0;
+      }
+
+      paper-toolbar#mainToolbar .title,
+      #filterSettings paper-toolbar .title {
         overflow: visible;
         @apply(--paper-font-title);
+      }
+
+      paper-toolbar#mainToolbar .title {
+        margin: 0 0 0 8px;
       }
 
       .dropdown-content {
@@ -86,6 +105,22 @@
           overflow-x: auto;
         };
       }
+
+      #filterSettings paper-toolbar .title {
+        margin-left: 24px;
+      }
+
+      #filterSettings .container {
+        padding: 8px 0;
+      }
+
+      #filterSettings paper-checkbox {
+        display: block;
+        padding: 14px 16px 14px 19px;
+        --paper-checkbox-label-spacing: 35px;
+        --paper-checkbox-unchecked-color: var(--secondary-text-color);
+      }
+
     </style>
 
     <!-- Routing -->
@@ -142,18 +177,21 @@
           ></al-main-view>
       </paper-scroll-header-panel>
 
-      <paper-scroll-header-panel name="filter">
-        <paper-toolbar id="mainToolbar">
+      <paper-scroll-header-panel name="filter" id="filterSettings">
+        <paper-toolbar>
           <paper-icon-button
             icon="arrow-back"
             on-tap="_onCloseFilterSettingsTap"></paper-icon-button>
           <div class="title">Visible Languages</div>
         </paper-toolbar>
 
-
-        <template is="dom-repeat" items=[[model.languages]] as=language>
-          <paper-checkbox checked>[[language.name]]</paper-checkbox>
-        </template>
+        <div class="container">
+          <template is="dom-repeat" items=[[model.languages]] as=language>
+            <paper-checkbox
+              checked="[[language.visible]]"
+              on-change="_onLanguageVisibleChange">[[language.name]]</paper-checkbox>
+          </template>
+        </div>
 
       </paper-scroll-header-panel>
 
@@ -179,6 +217,13 @@
 
       _onCloseFilterSettingsTap: function(event) {
         this.$.storage.closeFilterSettings();
+      },
+
+      _onLanguageVisibleChange: function(event) {
+        this.$.storage.changeLanguageVisibility({
+          language: event.model.language.id,
+          visible: event.target.checked
+        });
       },
 
       _camelCase: function(input) {

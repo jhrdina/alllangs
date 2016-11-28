@@ -37,7 +37,7 @@
         on-text-changed="_onTitleChanged">
       </al-construct-cell>
     </td>
-    <template is="dom-repeat" items="[[construct.solutions]]" as="solution">
+    <template is="dom-repeat" items="[[_computeVisibleSolutions(construct.solutions, visibleLanguages)]]" as="solution">
       <td>
         <al-code-cell
           text="[[solution.text]]"
@@ -60,6 +60,13 @@
         construct: {
           type: Object
         },
+        visibleLanguages: {
+          type: Array
+        }
+      },
+
+      _computeVisibleSolutions: function(solutions, visibleLanguages) {
+        return solutions.filter((solution) => visibleLanguages.includes(solution.language));
       },
 
       _onTitleChanged: function(event) {
