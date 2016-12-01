@@ -32,6 +32,7 @@
 
     <td>
       <al-construct-cell
+        edit-mode="[[editMode]]"
         text="[[construct.title]]"
         editing="[[construct.editing]]"
         on-text-changed="_onTitleChanged">
@@ -62,6 +63,10 @@
         },
         visibleLanguages: {
           type: Array
+        },
+        editMode: {
+          type: Boolean,
+          value: false
         }
       },
 

@@ -47,6 +47,7 @@
           <!-- Section content -->
           <template is="dom-repeat" items="[[section.constructs]]" as="construct" index-as="constructIndex">
             <al-construct-row
+              edit-mode="[[editMode]]"
               construct="[[construct]]"
               visible-languages="[[_computeVisibleLanguages(languages)]]"
               on-construct-title-change="_bubble"
@@ -78,6 +79,10 @@
         sections: {
           type: Array
         },
+        editMode: {
+          type: Boolean,
+          value: false
+        }
       },
 
       _bubble: function(event) {

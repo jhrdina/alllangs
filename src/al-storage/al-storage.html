@@ -103,11 +103,13 @@
       // ACTIONS
 
       solutionTap: function(detail) {
-        this.model
-          .sections[detail.sectionIndex]
-          .constructs[detail.constructIndex]
-          .solutions.find((solution) => solution.language === detail.language)
-          .set({editing: true});
+        if (this.model.editMode) {
+          this.model
+            .sections[detail.sectionIndex]
+            .constructs[detail.constructIndex]
+            .solutions.find((solution) => solution.language === detail.language)
+            .set({editing: true});
+        }
       },
 
       solutionKeydown: function(detail) {
@@ -149,6 +151,11 @@
         this.model
           .languages.find((language) => language.id === detail.language)
           .set({ visible: detail.visible });
+      },
+
+      changeEditModeEnabled: function(detail) {
+        this.model
+          .set({ editMode: detail.enabled });
       }
     });
   </script>
