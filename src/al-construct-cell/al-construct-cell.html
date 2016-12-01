@@ -21,6 +21,7 @@
 
         --iron-autogrow-textarea: {
           @apply(--al-construct-cell-text);
+          padding: 0;
         };
       }
 
@@ -47,6 +48,10 @@
       paper-menu-button {
         padding: 0;
       }
+
+      paper-item {
+        cursor: pointer;
+      }
     </style>
 
     <iron-autogrow-textarea
@@ -58,10 +63,10 @@
       <div class="toolbar">
         <paper-menu-button>
           <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
-          <paper-material class="dropdown-content">
+          <paper-material class="dropdown-content" on-tap="_closeDropdown">
             <paper-item on-tap="_onDeleteTap">Delete</paper-item>
             <paper-item on-tap="_onAddConstructBelowTap">Add construct below</paper-item>
-            <paper-item on-tap="_onAddSectionBelowTap">Add section below</paper-item>
+            <!--<paper-item on-tap="_onAddSectionBelowTap">Add section below</paper-item>-->
           </paper-material>
         </paper-menu-button>
         <paper-icon-button on-tap="_onMoveUpTap" icon="expand-less"></paper-icon-button>
@@ -76,12 +81,17 @@
 
       properties: {
         text: {
-          type: String
+          type: String,
+          notify: true
         },
         editMode: {
           type: Boolean,
           value: false
         }
+      },
+
+      _closeDropdown: function(event) {
+        event.target.fire('iron-select');
       },
 
       _onDeleteTap: function() {

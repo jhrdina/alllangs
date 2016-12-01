@@ -154,7 +154,7 @@
           <!--<paper-icon-button icon="search"></paper-icon-button>-->
           <paper-menu-button horizontal-align="right">
             <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
-            <div class="dropdown-content" id="mainMenu">
+            <div class="dropdown-content" id="mainMenu" on-tap="_closeDropdown">
               <paper-item on-tap="_onChooseLanguagesTap">Choose languages</paper-item>
               <!--<paper-item on-tap="addLanguageTapped">Add language</paper-item>-->
               <div class="menu-separator"></div>
@@ -185,6 +185,13 @@
           on-solution-tap="_dispatch"
           on-solution-keydown="_dispatch"
           on-solution-changed="_dispatch"
+          on-construct-title-changed="_dispatch"
+          on-delete="_dispatch"
+          on-add-construct-below="_dispatch"
+          on-move-up="_dispatch"
+          on-move-down="_dispatch"
+
+          on-add-section-below="_dispatch"
           ></al-main-view>
       </paper-scroll-header-panel>
 
@@ -217,6 +224,10 @@
         '_routePageChanged(routeData.page)',
         '_modelPageChanged(model.page)'
       ],
+
+      _closeDropdown: function(event) {
+        event.target.fire('iron-select');
+      },
 
       _dispatch: function(event) {
         this.$.storage[this._camelCase(event.type)](event.detail);

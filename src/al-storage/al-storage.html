@@ -156,6 +156,58 @@
       changeEditModeEnabled: function(detail) {
         this.model
           .set({ editMode: detail.enabled });
+      },
+
+      moveUp: function(detail) {
+        this.move(Object.assign({}, detail, { delta: -1 }));
+      },
+
+      moveDown: function(detail) {
+        this.move(Object.assign({}, detail, { delta: 1 }));
+      },
+
+      move: function(detail) {
+        const constructs = this.model
+          .sections[detail.sectionIndex]
+          .constructs;
+
+        const newIndex = detail.constructIndex + Math.sign(detail.delta);
+        if (newIndex < 0 || newIndex >= constructs.length) {
+          return;
+        }
+
+        const construct = constructs[detail.constructIndex];
+
+        constructs
+          .splice(detail.constructIndex, 1)
+          .splice(newIndex, 0, construct);
+      },
+
+      delete: function(detail) {
+        this.model
+          .sections[detail.sectionIndex]
+          .constructs.splice(detail.constructIndex, 1);
+      },
+
+      addConstructBelow: function(detail) {
+        this.model
+          .sections[detail.sectionIndex]
+          .constructs.splice(detail.constructIndex + 1, 0, {
+            title: '',
+            solutions: this.model.languages.map((lang) => ({
+              text: '',
+              language: lang.id,
+              prism: lang.prism,
+              editing: false
+            }))
+          });
+      },
+
+      constructTitleChanged: function(detail) {
+        this.model
+          .sections[detail.sectionIndex]
+          .constructs[detail.constructIndex]
+          .set({ title: detail.value });
       }
     });
   </script>

@@ -101,7 +101,7 @@ Editable text cell with syntax highlighting
       // ],
 
       _renderPrism: function() {
-        if (this.editing || !this.text) return;
+        if (this.editing || typeof(this.text) === 'undefined') return;
 
         this.$.codeviewer.innerHTML = he.encode(this.text);
         Prism.highlightElement(this.$.codeviewer);
