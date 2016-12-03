@@ -24,10 +24,11 @@ CNAME \
 index.html \
 manifest.json \
 service-worker.js \
-sw-precache-config.js \
 bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror-worker.js \
 bower_components/webcomponentsjs/webcomponents-lite.min.js
+#sw-precache-config.js \
 
+sed -i 's%url="/data.json"%url="https://raw.githubusercontent.com/jhrdina/alllangs/master/data.json"%g' "$DIST_DIR/src/al-app/al-app.html"
 
 #git clone -b gh-pages https://github.com/jhrdina/alllangs.git .
 cd "$GH_PAGES_DIR"

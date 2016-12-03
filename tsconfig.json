@@ -20,7 +20,6 @@
         "!node_modules/**"
     ],
     "files": [
-        "src/al-construct-cell/al-construct-cell.ts",
         "src/al-section-header/al-section-header.ts"
     ],
     "atom": {
