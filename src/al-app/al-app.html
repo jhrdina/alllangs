@@ -127,10 +127,10 @@
 
     <app-location route="{{route}}"></app-location>
     <app-route
-        route="{{route}}"
-        pattern="/:page"
-        data="{{routeData}}"
-        tail="{{subroute}}">
+      route="{{route}}"
+      pattern="/:page"
+      data="{{routeData}}"
+      query-params={{routeParams}}>
     </app-route>
 
     <!-- Storage -->
@@ -160,7 +160,7 @@
               <div class="menu-separator"></div>
               <paper-item>
                 <paper-checkbox
-                  checked="[[this.model.editMode]]"
+                  checked="[[model.editMode]]"
                   on-change="_onEditModeEnabledChange">
                   Edit mode
                 </paper-checkbox>
@@ -229,7 +229,9 @@
 
       observers: [
         '_routePageChanged(routeData.page)',
-        '_modelPageChanged(model.page)'
+        '_modelPageChanged(model.page)',
+        '_routeModeChanged(routeParams.edit)',
+        '_modelModeChanged(model.editMode)'
       ],
 
       _closeDropdown: function(event) {
@@ -311,12 +313,22 @@
       // Routing
 
       _modelPageChanged: function(page) {
-        this.set('routeData.page', page);
+        this.set('routeData.page', page === 'main' ? '' : page);
       },
 
       _routePageChanged: function(page) {
-        this.$.storage.routePageChanged({page});
+        this.$.storage.routePageChanged({page: page});
       },
+
+      _modelModeChanged: function(editMode) {
+        this.set('routeParams.edit', editMode);
+      },
+
+      _routeModeChanged: function(edit) {
+        this.$.storage.changeEditModeEnabled({
+          enabled: Boolean(edit)
+        });
+      }
 
       // _pageChanged: function(page) {
       //   // Load page import on demand. Show 404 page if fails

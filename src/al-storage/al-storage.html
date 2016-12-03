@@ -36,7 +36,8 @@
 
       ready: function() {
         this.freezer = new Freezer({
-          page: 'main'
+          page: 'main',
+          editMode: false
         });
         this.freezer.on('update', (m) => {
           //console.log("update");
@@ -155,7 +156,7 @@
 
       changeEditModeEnabled: function(detail) {
         this.model
-          .set({ editMode: detail.enabled });
+          .set({editMode: detail.enabled});
       },
 
       moveUp: function(detail) {
