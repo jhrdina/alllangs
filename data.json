@@ -7,10 +7,10 @@
           "title": "Multi-line string",
           "solutions": {
             "cplusplus": "std::string HELP_MSG =\n    \"great text\\n\"\n    \"with multiple\\n\"\n    \"lines\\n\";",
-            "js": "var HELP_MSG =\n  'great text\\n' +\n  'with multiple\\n' +\n  'lines';",
+            "csharp": "string HELP_MSG =\n@\"great text\nwith multiple\nlines\";",
             "java": "String HELP_MSG =\n    \"great text\\n\" +\n    \"with multiple\\n\" +\n    \"lines\";",
-            "python": "HELP_MSG = \n\"\"\"great text\nwith multiple\nlines\"\"\"",
-            "csharp": "string HELP_MSG =\n@\"great text\nwith multiple\nlines\";"
+            "js": "var HELP_MSG =\n  'great text\\n' +\n  'with multiple\\n' +\n  'lines';",
+            "python": "HELP_MSG = \n\"\"\"great text\nwith multiple\nlines\"\"\""
           }
         },
         {
@@ -18,7 +18,8 @@
           "solutions": {
             "cplusplus": "AmazingClass::method();",
             "java": "AmazingClass.method();",
-            "js": "AmazingClass.method();"
+            "js": "AmazingClass.method();",
+            "python": "AmazingClass.hust()"
           }
         }
       ]
@@ -29,59 +30,67 @@
         {
           "title": "Create a list of strings",
           "solutions": {
-            "java": "ArrayList<String> list = new ArrayList<String>();",
             "cplusplus": "std::vector<std::string> list;",
+            "csharp": "ArrayList list = new ArrayList();",
+            "java": "ArrayList<String> list = new ArrayList<String>();",
             "js": "var list = [];",
-            "python": "list = []",
-            "csharp": "ArrayList list = new ArrayList();"
+            "python": "list = []"
           }
         },
         {
           "title": "Append a new object at the end of the list",
           "solutions": {
-            "java": "list.add(new Message(param));",
             "cplusplus": "list.push_back(Message(param));",
+            "csharp": "list.Add(new Message(param));",
+            "java": "list.add(new Message(param));",
             "js": "list.push(new Message(param));",
-            "csharp": "list.Add(new Message(param));"
+            "python": "list.append(Message(param))"
           }
         },
         {
           "title": "Length of list",
           "solutions": {
-            "java": "list.size();",
             "cplusplus": "list.size();",
+            "csharp": "list.Count;",
+            "java": "list.size();",
             "js": "list.length",
-            "csharp": "list.Count;"
+            "python": "len(list)"
           }
         },
         {
           "title": "Hash table",
           "solutions": {
             "cplusplus": "std::map<std::string, Message> table;",
+            "java": "Map table = new HashMap();",
             "js": "var table = {};",
-            "java": "Map table = new HashMap();"
+            "python": "table = {}"
           }
         },
         {
           "title": "Add item to hash table",
           "solutions": {
             "cplusplus": "table[\"text\"] = Message(param);",
+            "java": "table.put(\"text\", new Message(param));",
             "js": "table['text'] = new Message(param);",
-            "java": "table.put(\"text\", new Message(param));"
+            "python": "table['text'] = Message(param)"
           }
         },
         {
           "title": "Check that key exists",
           "solutions": {
             "cplusplus": "bool exists = table.count(\"text\");",
+            "java": "boolean exists = table.containsKey(\"text\");",
             "js": "var exists = table.hasOwnProperty('text');",
-            "java": "boolean exists = table.containsKey(\"text\");"
+            "python": "exists = 'text' in table"
           }
         },
         {
           "title": "Iterate over hashtable items",
           "solutions": {
-            "cplusplus": "for (auto const &iter : messagesByServer) {\n    std::string &key = iter.first;\n    Message &value = iter.second;\n}"
+            "cplusplus": "for (auto const &iter : messagesByServer) {\n    std::string &key = iter.first;\n    Message &value = iter.second;\n}",
+            "java": "for (Map.Entry<String, Message> entry : table.entrySet()) {\n    String key = entry.getKey();\n    Message value = entry.getValue();\n}",
+            "js": "Object.keys(table).forEach(function (key) {\n  var value = table[key];\n});",
+            "python": "for k, v in table.iteritems():\n    key = k\n    value = v"
           }
         }
       ]
@@ -99,16 +108,16 @@
         {
           "title": "Exception throwing",
           "solutions": {
-            "java": "throw new CustomException(\"Message\");",
             "cplusplus": "throw CustomException(\"Message\");",
+            "java": "throw new CustomException(\"Message\");",
             "js": "throw 'Message';"
           }
         },
         {
           "title": "Exception catching",
           "solutions": {
-            "java": "try {\n    // Code that should throw an exception\n} catch (CustomException e) {\n    System.err.println(e.getMessage());\n}",
             "cplusplus": "try {\n    // Code that should throw an exception\n} catch (const CustomException& e) {\n    std::cerr << e.what() << std::endl;\n}",
+            "java": "try {\n    // Code that should throw an exception\n} catch (CustomException e) {\n    System.err.println(e.getMessage());\n}",
             "js": "try {\n  // Code that should throw an exception\n} catch(err) {\n  console.log(err.message);\n}"
           }
         }
@@ -120,9 +129,10 @@
         {
           "title": "Read file line by line",
           "solutions": {
-            "cplusplus": "#include <fstream>\n\nstd::ifstream fr(“soubor.txt”);\n\nstd::string line;\nwhile (std::getline(fr, line)) {\n    std::cout << line << std::endl;\n}\n\nfr.close();",
-            "java": "try (BufferedReader br = new BufferedReader(new FileReader(file))) {\n    String line;\n    while ((line = br.readLine()) != null) {\n       System.out.println(line);\n    }\n}",
-            "js": "var fileInput = document.getElementById('fileInput');\n\nvar reader = new FileReader();\n\nreader.onload = function(e) {\n  var lines = reader.result.split('\n');\n  for(var i = 0; i < lines.length; i++) {\n    console.log(lines[i]);\n  }\n}\n\nreader.readAsText(fileInput.files[0]);"
+            "cplusplus": "#include <fstream>\n\nstd::ifstream fr(“file.txt”);\n\nstd::string line;\nwhile (std::getline(fr, line)) {\n    std::cout << line << std::endl;\n}\n\nfr.close();",
+            "java": "try (BufferedReader br =\n     new BufferedReader(\n     new FileReader(\n     new File(\"file.txt\")))) {\n\n    String line;\n    while ((line = br.readLine()) != null) {\n       System.out.println(line);\n    }\n} catch (IOException ex) {\n    System.err.println(\"Error: \" + ex.getMessage());\n}",
+            "js": "var fileInput = document.getElementById('fileInput');\n\nvar reader = new FileReader();\n\nreader.onload = function(e) {\n  var lines = reader.result.split('\n');\n  for(var i = 0; i < lines.length; i++) {\n    console.log(lines[i]);\n  }\n}\n\nreader.readAsText(fileInput.files[0]);",
+            "python": "with open('file.txt') as fr:\n    for line in fr:\n        print(line)"
           }
         }
       ]
@@ -135,7 +145,8 @@
           "solutions": {
             "cplusplus": "std::string numAsStr = std::to_string(42);",
             "java": "String numAsStr = Integer.toString(42);",
-            "js": "var numAsStr = (42).toString();"
+            "js": "var numAsStr = (42).toString();",
+            "python": "numAsStr = str(42)"
           }
         }
       ]
