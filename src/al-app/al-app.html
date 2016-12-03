@@ -214,6 +214,13 @@
       </paper-scroll-header-panel>
 
     </iron-pages>
+
+    <paper-toast
+      id="editModeToast"
+      duration="13000"
+      text="Edit mode enabled, hit Ctrl + Enter to save cell changes, Export to preserve your data.">
+    </paper-toast>
+
   </template>
 
   <script>
@@ -252,6 +259,9 @@
         this.$.storage.changeEditModeEnabled({
           enabled: event.target.checked
         });
+        if (event.target.checked) {
+          this.$.editModeToast.open();
+        }
       },
 
       _camelCase: function(input) {
