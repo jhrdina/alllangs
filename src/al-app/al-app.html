@@ -3076,7 +3076,7 @@ Jfr:"𝔍",jfr:"𝔧",jmath:"ȷ",Jopf:"𝕁",jopf:"𝕛",Jscr:"𝒥",jscr:"𝒿"
       }
     </style>
 
-    <iron-ajax auto="" url="/data.json" handle-as="json" on-last-response-changed="_onNewData">
+    <iron-ajax auto="" url="https://raw.githubusercontent.com/jhrdina/alllangs/master/data.json" handle-as="json" on-last-response-changed="_onNewData">
     </iron-ajax>
     <app-indexeddb-mirror key="model" data="{{liveModel}}" on-persisted-data-changed="_onNewData">
     </app-indexeddb-mirror>
