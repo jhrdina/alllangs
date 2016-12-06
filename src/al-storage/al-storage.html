@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
+
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
 
 <dom-module id="al-storage">
   <script src="../../bower_components/freezer-js/build/freezer.js"></script>
@@ -22,6 +23,11 @@
       on-persisted-data-changed="_onNewData">
     </app-indexeddb-mirror>
 
+    <iron-localstorage
+      name="alllangs:visibleLanguages"
+      value="{{localVisibleLanguages}}">
+    </iron-localstorage>
+
   </template>
   <script>
     Polymer({
@@ -33,6 +39,10 @@
           notify: true
         },
       },
+
+      observers: [
+        '_onModelLanguagesChanged(model.languages)'
+      ],
 
       ready: function() {
         this.freezer = new Freezer({
@@ -50,6 +60,15 @@
         this._updateModel(e.detail.value);
       },
 
+      _onModelLanguagesChanged: function(languages) {
+        if (!languages) {
+          return;
+        }
+        this.localVisibleLanguages = languages.reduce((acc, language) => (
+          language.visible ? acc.concat([language.id]) : acc
+        ), []);
+      },
+
       _updateModel: function(o) {
         this.model.set(Object.assign({}, o, {
           sections: o.sections.map((section, index) => Object.assign({}, section, {
@@ -63,7 +82,7 @@
             }))
           })),
           languages: o.languages.map((language) => Object.assign({}, language, {
-            visible: true
+            visible: this.localVisibleLanguages ? this.localVisibleLanguages.indexOf(language.id) !== -1 : true
           }))
         }));
       },
