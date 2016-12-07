@@ -35,9 +35,9 @@
     <style>
       /* Presunout z rootu do hostu */
       :root {
-        --dark-primary-color:       #5D4037;
-        --primary-color:            #795548;
-        --accent-color:             #FF9800;
+        --dark-primary-color:       #07a;
+        --primary-color:            #07a;
+        --accent-color:             #FF5722;
       }
 
       :host {
@@ -47,6 +47,8 @@
 
         color: var(--primary-text-color);
         line-height: initial;
+
+        --al-main-view-border-color: #c7c7c7;
       }
 
       paper-toolbar {
@@ -54,6 +56,10 @@
           padding-right: 4px;
           padding-left: 8px;
         };
+
+        background: #fafafa;
+        border-bottom: 1px solid var(--al-main-view-border-color);
+        color: var(--primary-text-color);
       }
 
       paper-item {

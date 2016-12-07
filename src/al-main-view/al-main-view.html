@@ -6,13 +6,19 @@
 <dom-module id="al-main-view">
   <template>
     <style>
-      table {
-        border-collapse: collapse;
-        border: 1px solid black;
+
+      :host {
+        --al-construct-row-border-color: var(--al-main-view-border-color);
       }
 
+      table,
       th {
-        border: 1px solid black;
+        border: 1px solid var(--al-main-view-border-color, black);
+        border-top: none;
+      }
+
+      table {
+        border-collapse: collapse;
       }
 
       al-section-header {
