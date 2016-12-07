@@ -15,7 +15,7 @@
       auto
       url="/data.json"
       handle-as="json"
-      on-last-response-changed="_onNewData">
+      last-response="{{liveModel}}">
     </iron-ajax>
     <app-indexeddb-mirror
       key="model"
