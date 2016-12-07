@@ -6,3 +6,4 @@ build
 .gh
 .eslintrc.json
 .vscode
+.firebaserc

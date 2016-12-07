@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "public": ".gh",
+    "ignore": [
+      "**/.*"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
