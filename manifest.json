@@ -4,8 +4,8 @@
   "description": "Frequent constructs written in many programming languages",
   "start_url": "/?homescreen=1",
   "display": "standalone",
-  "theme_color": "#5D4037",
-  "background_color": "#795548",
+  "theme_color": "#fafafa",
+  "background_color": "#fafafa",
   "icons": [
     {
       "src": "images/manifest/icon-192x192.png",

@@ -2615,7 +2615,7 @@ Jfr:"𝔍",jfr:"𝔧",jmath:"ȷ",Jopf:"𝕁",jopf:"𝕛",Jscr:"𝒥",jscr:"𝒿"
       }
 
       td {
-        border: 1px solid black;
+        border: 1px solid var(--al-construct-row-border-color, black);
         vertical-align: top;
       }
     </style>
@@ -2637,13 +2637,19 @@ Jfr:"𝔍",jfr:"𝔧",jmath:"ȷ",Jopf:"𝕁",jopf:"𝕛",Jscr:"𝒥",jscr:"𝒿"
 <dom-module id="al-main-view" assetpath="../al-main-view/">
   <template>
     <style>
-      table {
-        border-collapse: collapse;
-        border: 1px solid black;
+
+      :host {
+        --al-construct-row-border-color: var(--al-main-view-border-color);
       }
 
+      table,
       th {
-        border: 1px solid black;
+        border: 1px solid var(--al-main-view-border-color, black);
+        border-top: none;
+      }
+
+      table {
+        border-collapse: collapse;
       }
 
       al-section-header {
@@ -2914,9 +2920,9 @@ Jfr:"𝔍",jfr:"𝔧",jmath:"ȷ",Jopf:"𝕁",jopf:"𝕛",Jscr:"𝒥",jscr:"𝒿"
     <style>
       /* Presunout z rootu do hostu */
       :root {
-        --dark-primary-color:       #5D4037;
-        --primary-color:            #795548;
-        --accent-color:             #FF9800;
+        --dark-primary-color:       #07a;
+        --primary-color:            #07a;
+        --accent-color:             #FF5722;
       }
 
       :host {
@@ -2926,6 +2932,8 @@ Jfr:"𝔍",jfr:"𝔧",jmath:"ȷ",Jopf:"𝕁",jopf:"𝕛",Jscr:"𝒥",jscr:"𝒿"
 
         color: var(--primary-text-color);
         line-height: initial;
+
+        --al-main-view-border-color: #c7c7c7;
       }
 
       paper-toolbar {
@@ -2933,6 +2941,10 @@ Jfr:"𝔍",jfr:"𝔧",jmath:"ȷ",Jopf:"𝕁",jopf:"𝕛",Jscr:"𝒥",jscr:"𝒿"
           padding-right: 4px;
           padding-left: 8px;
         };
+
+        background: #fafafa;
+        border-bottom: 1px solid var(--al-main-view-border-color);
+        color: var(--primary-text-color);
       }
 
       paper-item {
