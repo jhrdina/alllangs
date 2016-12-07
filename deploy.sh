@@ -1,7 +1,5 @@
 #!/bin/bash
 
-tsc
-
 set -e
 
 if [ "$1" != "nobuild" ] ; then
