@@ -2635,53 +2635,7 @@ Jfr:"𝔍",jfr:"𝔧",jmath:"ȷ",Jopf:"𝕁",jopf:"𝕛",Jscr:"𝒥",jscr:"𝒿"
     </template>
   </template>
 
-  <script>
-    Polymer({
-
-      is: 'al-construct-row',
-
-      properties: {
-        construct: {
-          type: Object
-        },
-        visibleLanguages: {
-          type: Array
-        },
-        editMode: {
-          type: Boolean,
-          value: false
-        }
-      },
-
-      _computeVisibleSolutions: function(solutions, visibleLanguages) {
-        return solutions.filter((solution) => visibleLanguages.includes(solution.language));
-      },
-
-      _onTitleChanged: function(event) {
-        this.fire('construct-title-changed', event.detail);
-      },
-
-      _onSolutionChanged: function(event) {
-        this.fire('solution-changed', {
-          language: event.model.solution.language,
-          value: event.detail.value
-        });
-      },
-
-      _onSolutionTap: function(event) {
-        this.fire('solution-tap', {
-          language: event.model.solution.language,
-        });
-      },
-
-      _onSolutionKeydown: function(event) {
-        this.fire('solution-keydown', {
-          language: event.model.solution.language,
-          keydownEvent: event
-        });
-      }
-    });
-  </script>
+  <script>Polymer({is:"al-construct-row",properties:{construct:{type:Object},visibleLanguages:{type:Array},editMode:{type:Boolean,value:!1}},_computeVisibleSolutions:function(n,e){return n.filter(function(n){return e.includes(n.language)})},_onTitleChanged:function(n){this.fire("construct-title-changed",n.detail)},_onSolutionChanged:function(n){this.fire("solution-changed",{language:n.model.solution.language,value:n.detail.value})},_onSolutionTap:function(n){this.fire("solution-tap",{language:n.model.solution.language})},_onSolutionKeydown:function(n){this.fire("solution-keydown",{language:n.model.solution.language,keydownEvent:n})}});</script>
 </dom-module>
 <dom-module id="al-main-view" assetpath="../al-main-view/">
   <template>
@@ -2733,43 +2687,7 @@ Jfr:"𝔍",jfr:"𝔧",jmath:"ȷ",Jopf:"𝕁",jopf:"𝕛",Jscr:"𝒥",jscr:"𝒿"
     </table>
   </template>
 
-  <script>
-    Polymer({
-
-      is: 'al-main-view',
-
-      properties: {
-        languages: {
-          type: Array
-        },
-        sections: {
-          type: Array
-        },
-        editMode: {
-          type: Boolean,
-          value: false
-        }
-      },
-
-      _bubble: function(event) {
-        event.stopPropagation();
-        this.fire(event.type, Object.assign({}, event.detail, {
-          sectionIndex: this.$.sections.indexForElement(event.target),
-          constructIndex: event.model.constructIndex
-        }));
-      },
-
-      _isVisible: function(language) {
-        return language.visible;
-      },
-
-      _computeVisibleLanguages: function(languages) {
-        return languages.reduce((acc, lang) => {
-          return lang.visible ? acc.concat([lang.id]) : acc;
-        }, []);
-      }
-    });
-  </script>
+  <script>Polymer({is:"al-main-view",properties:{languages:{type:Array},sections:{type:Array},editMode:{type:Boolean,value:!1}},_bubble:function(e){e.stopPropagation(),this.fire(e.type,Object.assign({},e.detail,{sectionIndex:this.$.sections.indexForElement(e.target),constructIndex:e.model.constructIndex}))},_isVisible:function(e){return e.visible},_computeVisibleLanguages:function(e){return e.reduce(function(e,t){return t.visible?e.concat([t.id]):e},[])}});</script>
 </dom-module>
 <dom-module id="iron-localstorage" assetpath="../../bower_components/iron-localstorage/"></dom-module>
 <script>Polymer({is:"iron-localstorage",properties:{name:{type:String,value:""},value:{type:Object,notify:!0},useRaw:{type:Boolean,value:!1},autoSaveDisabled:{type:Boolean,value:!1},errorMessage:{type:String,notify:!0},_loaded:{type:Boolean,value:!1}},observers:["_debounceReload(name,useRaw)","_trySaveValue(autoSaveDisabled)","_trySaveValue(value.*)"],ready:function(){this._boundHandleStorage=this._handleStorage.bind(this)},attached:function(){window.addEventListener("storage",this._boundHandleStorage)},detached:function(){window.removeEventListener("storage",this._boundHandleStorage)},_handleStorage:function(e){e.key==this.name&&this._load(!0)},_trySaveValue:function(){this._doNotSave||this._loaded&&!this.autoSaveDisabled&&this.debounce("save",this.save)},_debounceReload:function(){this.debounce("reload",this.reload)},reload:function(){this._loaded=!1,this._load()},_load:function(e){try{var a=window.localStorage.getItem(this.name)}catch(e){this.errorMessage=e.message,this._error("Could not save to localStorage.  Try enabling cookies for this page.",e)}if(null===a)this._loaded=!0,this._doNotSave=!0,this.value=null,this._doNotSave=!1,this.fire("iron-localstorage-load-empty",{externalChange:e});else{if(!this.useRaw)try{a=JSON.parse(a)}catch(e){this.errorMessage="Could not parse local storage value",Polymer.Base._error("could not parse local storage value",a),a=null}this._loaded=!0,this._doNotSave=!0,this.value=a,this._doNotSave=!1,this.fire("iron-localstorage-load",{externalChange:e})}},save:function(){var e=this.useRaw?this.value:JSON.stringify(this.value);try{null===this.value||void 0===this.value?window.localStorage.removeItem(this.name):window.localStorage.setItem(this.name,e)}catch(e){this.errorMessage=e.message,Polymer.Base._error("Could not save to localStorage. Incognito mode may be blocking this action",e)}}});</script>
@@ -3154,123 +3072,6 @@ Jfr:"𝔍",jfr:"𝔧",jmath:"ȷ",Jopf:"𝕁",jopf:"𝕛",Jscr:"𝒥",jscr:"𝒿"
 
   </template>
 
-  <script>
-    Polymer({
-      is: 'al-app',
-
-      observers: [
-        '_routePageChanged(routeData.page)',
-        '_modelPageChanged(model.page)',
-        '_routeModeChanged(routeParams.edit)',
-        '_modelModeChanged(model.editMode)'
-      ],
-
-      _closeDropdown: function(event) {
-        event.target.fire('iron-select');
-      },
-
-      _dispatch: function(event) {
-        this.$.storage[this._camelCase(event.type)](event.detail);
-      },
-
-      _onChooseLanguagesTap: function(event) {
-        this.$.storage.openFilterSettings();
-      },
-
-      _onCloseFilterSettingsTap: function(event) {
-        this.$.storage.closeFilterSettings();
-      },
-
-      _onLanguageVisibleChange: function(event) {
-        this.$.storage.changeLanguageVisibility({
-          language: event.model.language.id,
-          visible: event.target.checked
-        });
-      },
-
-      _onEditModeEnabledChange: function(event) {
-        this.$.storage.changeEditModeEnabled({
-          enabled: event.target.checked
-        });
-        if (event.target.checked) {
-          this.$.editModeToast.open();
-        }
-      },
-
-      _camelCase: function(input) {
-          return input.toLowerCase().replace(/-(.)/g, function(match, group1) {
-              return group1.toUpperCase();
-          });
-      },
-
-      _onFileSelected: function(e) {
-        var file = e.target.files[0];
-        if (!file) {
-          return;
-        }
-
-        var reader = new FileReader();
-        reader.addEventListener('load', e => {
-          this.$.storage.parseJSON(e.target.result);
-        });
-
-        reader.readAsText(file);
-      },
-
-      exportTapped: function() {
-        const data = this.$.storage.exportJSON()
-        this.download('data.json', data);
-      },
-
-      download: function(filename, data) {
-        var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
-        element.setAttribute('download', filename);
-
-        element.style.display = 'none';
-
-        // TODO: Append to local DOM
-        document.body.appendChild(element);
-
-        element.click();
-
-        document.body.removeChild(element);
-      },
-
-      importTapped: function() {
-        this.$.file.click();
-      },
-
-      // Routing
-
-      _modelPageChanged: function(page) {
-        this.set('routeData.page', page === 'main' ? '' : page);
-      },
-
-      _routePageChanged: function(page) {
-        this.$.storage.routePageChanged({page: page});
-      },
-
-      _modelModeChanged: function(editMode) {
-        this.set('routeParams.edit', editMode);
-      },
-
-      _routeModeChanged: function(edit) {
-        this.$.storage.changeEditModeEnabled({
-          enabled: Boolean(edit)
-        });
-      }
-
-      // _pageChanged: function(page) {
-      //   // Load page import on demand. Show 404 page if fails
-      //   var resolvedPageUrl = this.resolveUrl(`../my-${page}/my-${page}.html`);
-      //   this.importHref(resolvedPageUrl, null, this._showPage404, true);
-      // },
-
-      // _showPage404: function() {
-      //   this.page = 'view404';
-      // },
-    });
-  </script>
+  <script>Polymer({is:"al-app",observers:["_routePageChanged(routeData.page)","_modelPageChanged(model.page)","_routeModeChanged(routeParams.edit)","_modelModeChanged(model.editMode)"],_closeDropdown:function(e){e.target.fire("iron-select")},_dispatch:function(e){this.$.storage[this._camelCase(e.type)](e.detail)},_onChooseLanguagesTap:function(e){this.$.storage.openFilterSettings()},_onCloseFilterSettingsTap:function(e){this.$.storage.closeFilterSettings()},_onLanguageVisibleChange:function(e){this.$.storage.changeLanguageVisibility({language:e.model.language.id,visible:e.target.checked})},_onEditModeEnabledChange:function(e){this.$.storage.changeEditModeEnabled({enabled:e.target.checked}),e.target.checked&&this.$.editModeToast.open()},_camelCase:function(e){return e.toLowerCase().replace(/-(.)/g,function(e,t){return t.toUpperCase()})},_onFileSelected:function(e){var t=e.target.files[0];if(t){var a=new FileReader,o=this;a.addEventListener("load",function(e){o.$.storage.parseJSON(e.target.result)}),a.readAsText(t)}},exportTapped:function(){const e=this.$.storage.exportJSON();this.download("data.json",e)},download:function(e,t){var a=document.createElement("a");a.setAttribute("href","data:text/plain;charset=utf-8,"+encodeURIComponent(t)),a.setAttribute("download",e),a.style.display="none",document.body.appendChild(a),a.click(),document.body.removeChild(a)},importTapped:function(){this.$.file.click()},_modelPageChanged:function(e){this.set("routeData.page","main"===e?"":e)},_routePageChanged:function(e){this.$.storage.routePageChanged({page:e})},_modelModeChanged:function(e){this.set("routeParams.edit",e)},_routeModeChanged:function(e){this.$.storage.changeEditModeEnabled({enabled:Boolean(e)})}});</script>
 </dom-module>
 </body></html>
