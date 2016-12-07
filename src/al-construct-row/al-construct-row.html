@@ -71,7 +71,9 @@
       },
 
       _computeVisibleSolutions: function(solutions, visibleLanguages) {
-        return solutions.filter((solution) => visibleLanguages.includes(solution.language));
+        return solutions.filter(function(solution) {
+          return visibleLanguages.includes(solution.language);
+        });
       },
 
       _onTitleChanged: function(event) {

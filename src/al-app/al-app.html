@@ -279,8 +279,9 @@
         }
 
         var reader = new FileReader();
-        reader.addEventListener('load', e => {
-          this.$.storage.parseJSON(e.target.result);
+        var that = this;
+        reader.addEventListener('load', function(e) {
+          that.$.storage.parseJSON(e.target.result);
         });
 
         reader.readAsText(file);

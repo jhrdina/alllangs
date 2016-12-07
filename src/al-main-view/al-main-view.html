@@ -1,5 +1,4 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
 
 <link rel="import" href="../al-section-header/al-section-header.html">
 <link rel="import" href="../al-construct-row/al-construct-row.html">
@@ -97,7 +96,7 @@
       },
 
       _computeVisibleLanguages: function(languages) {
-        return languages.reduce((acc, lang) => {
+        return languages.reduce(function(acc, lang) {
           return lang.visible ? acc.concat([lang.id]) : acc;
         }, []);
       }

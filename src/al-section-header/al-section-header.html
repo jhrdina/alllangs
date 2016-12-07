@@ -1,8 +1,4 @@
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/polymer-ts/polymer-ts.html">
-
-
 
 <dom-module id="al-section-header">
   <template>
@@ -15,8 +11,18 @@
         margin: 0.83em 0 0.2em 10px;
       }
     </style>
-    <h2>{{text}}</h2>
+    <h2>[[text]]</h2>
   </template>
-</dom-module>
+  <script>
+    Polymer({
 
-<script type="text/javascript" src="al-section-header.js"></script>
+      is: 'al-section-header',
+
+      properties: {
+        text: {
+          type: String
+        }
+      }
+    });
+  </script>
+</dom-module>
