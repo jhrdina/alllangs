@@ -30,7 +30,7 @@
         {
           "title": "Create a list of strings",
           "solutions": {
-            "cplusplus": "std::vector<std::string> list;",
+            "cplusplus": "#include <vector>\nstd::vector<std::string> list;",
             "csharp": "ArrayList list = new ArrayList();",
             "java": "ArrayList<String> list = new ArrayList<String>();",
             "js": "var list = [];",
@@ -55,6 +55,22 @@
             "java": "list.size();",
             "js": "list.length",
             "python": "len(list)"
+          }
+        },
+        {
+          "title": "Index of a list item",
+          "solutions": {
+            "cplusplus": "#include <algorithm>\n\nstd::vector<int>::iterator it = find (list.begin(), list.end(), message);\nint i = it != list.end() ? *it : -1;",
+            "java": "int i = list.indexOf(message);",
+            "js": "var i = list.indexOf(message);"
+          }
+        },
+        {
+          "title": "Remove item with index",
+          "solutions": {
+            "cplusplus": "list.erase(list.begin() + index);",
+            "java": "list.remove(index);",
+            "js": "list.splice(index, 1);"
           }
         },
         {
@@ -91,6 +107,14 @@
             "java": "for (Map.Entry<String, Message> entry : table.entrySet()) {\n    String key = entry.getKey();\n    Message value = entry.getValue();\n}",
             "js": "Object.keys(table).forEach(function (key) {\n  var value = table[key];\n});",
             "python": "for k, v in table.iteritems():\n    key = k\n    value = v"
+          }
+        },
+        {
+          "title": "Number of hash table items",
+          "solutions": {
+            "cplusplus": "int n = table.size();",
+            "java": "int n = table.size();",
+            "js": "Object.keys(table).length;"
           }
         }
       ]
@@ -152,6 +176,7 @@
         {
           "title": "Convert string to integer",
           "solutions": {
+            "cplusplus": "int strAsNum = std::stoi(\"42\");",
             "java": "int strAsNum = Integer.parseInt(\"42\");",
             "js": "var strAsNum = parseInt('42');"
           }
