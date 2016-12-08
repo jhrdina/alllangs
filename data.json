@@ -148,6 +148,26 @@
             "js": "var numAsStr = (42).toString();",
             "python": "numAsStr = str(42)"
           }
+        },
+        {
+          "title": "Convert string to integer",
+          "solutions": {
+            "java": "int strAsNum = Integer.parseInt(\"42\");",
+            "js": "var strAsNum = parseInt('42');"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Random numbers",
+      "constructs": [
+        {
+          "title": "Random integer between min (inclusive) and max (inclusive)",
+          "solutions": {
+            "cplusplus": "#include <time.h>\n\n// First time:\nsrand(time(NULL));\n\nint n = rand() % (max - min + 1) + min;",
+            "java": "Random random = new Random();\nint n = random.nextInt(max - min + 1) + min;",
+            "js": "var n = Math.floor(Math.random() * (max - min + 1)) + min;"
+          }
         }
       ]
     }
