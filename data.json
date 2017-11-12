@@ -160,6 +160,7 @@
           "title": "Read file line by line",
           "solutions": {
             "cplusplus": "#include <fstream>\n\nstd::ifstream fr(“file.txt”);\n\nstd::string line;\nwhile (std::getline(fr, line)) {\n    std::cout << line << std::endl;\n}\n\nfr.close();",
+            "csharp": "using System.IO;\n\nvar lines = File.ReadLines(\"file.txt\");\nforeach (var line in lines) {\n     System.Console.WriteLine(line);\n}",
             "java": "try (BufferedReader br =\n     new BufferedReader(\n     new FileReader(\n     new File(\"file.txt\")))) {\n\n    String line;\n    while ((line = br.readLine()) != null) {\n       System.out.println(line);\n    }\n} catch (IOException ex) {\n    System.err.println(\"Error: \" + ex.getMessage());\n}",
             "js": "var fileInput = document.getElementById('fileInput');\n\nvar reader = new FileReader();\n\nreader.onload = function(e) {\n  var lines = reader.result.split('\n');\n  for(var i = 0; i < lines.length; i++) {\n    console.log(lines[i]);\n  }\n}\n\nreader.readAsText(fileInput.files[0]);",
             "python": "with open('file.txt') as fr:\n    for line in fr:\n        print(line)"
@@ -174,6 +175,7 @@
           "title": "Convert integer to string",
           "solutions": {
             "cplusplus": "std::string numAsStr = std::to_string(42);",
+            "csharp": "string numAsStr = (42).ToString();",
             "java": "String numAsStr = Integer.toString(42);",
             "js": "var numAsStr = (42).toString();",
             "python": "numAsStr = str(42)"
@@ -183,6 +185,7 @@
           "title": "Convert string to integer",
           "solutions": {
             "cplusplus": "int strAsNum = std::stoi(\"42\");",
+            "csharp": "int strAsNum = Int32.Parse(\"42\");",
             "java": "int strAsNum = Integer.parseInt(\"42\");",
             "js": "var strAsNum = parseInt('42');"
           }
@@ -196,6 +199,7 @@
           "title": "Random integer between min (inclusive) and max (inclusive)",
           "solutions": {
             "cplusplus": "#include <time.h>\n\n// First time:\nsrand(time(NULL));\n\nint n = rand() % (max - min + 1) + min;",
+            "csharp": "Random random = new Random();\nint n = random.Next(min, max + 1);",
             "java": "Random random = new Random();\nint n = random.nextInt(max - min + 1) + min;",
             "js": "var n = Math.floor(Math.random() * (max - min + 1)) + min;"
           }
