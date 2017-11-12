@@ -21,6 +21,12 @@
             "js": "AmazingClass.method();",
             "python": "AmazingClass.hust()"
           }
+        },
+        {
+          "title": "Check that object is an instance of class",
+          "solutions": {
+            "cplusplus": "bool isInstance = dynamic_cast<Message*>(msg) != nullptr;"
+          }
         }
       ]
     },
